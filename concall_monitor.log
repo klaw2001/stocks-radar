@@ -1,0 +1,366 @@
+[2026-04-10 11:52:49] [config] PORT=3077
+[2026-04-10 11:52:49] [config] ADMIN_KEY=****-key
+[2026-04-10 11:52:49] [config] X_BEARER_TOKEN=✗ not set — mock sentiment mode
+[2026-04-10 11:52:49] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-10 11:52:49] [config] USERS=alice, bob
+[2026-04-10 11:52:49] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-10 11:52:49] [db] Tables ready. 14 existing events in DB.
+[2026-04-10 11:52:49] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 11:52:49] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-10 11:52:49] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-10 11:52:49] [server] 🔑 Admin key: ****-key
+[2026-04-10 11:52:49] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 11:52:49] [polling] Running initial polls on startup…
+[2026-04-10 11:52:49] [stockscans] ⏳ Starting poll…
+[2026-04-10 11:52:49] [stockscans] Launching browser…
+[2026-04-10 11:52:49] [tijori] ⏳ Starting poll. 11 pending events to check.
+[2026-04-10 11:52:49] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-10 11:52:49] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-10 11:52:50] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-10 11:52:50] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-10 11:52:53] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-10 11:52:53] [tijori] Cloudflare cleared. Calling /api/v1/concalls/list…
+[2026-04-10 11:52:54] [tijori] API response: HTTP 200
+[2026-04-10 11:52:54] [tijori] ✓ Got 100 concalls from API.
+[2026-04-10 11:52:54] [tijori]   no match: "BSE:KESAR"
+[2026-04-10 11:52:54] [tijori]   no match: "EPS ₹"
+[2026-04-10 11:52:54] [tijori]   no match: "G M Breweries Ltd"
+[2026-04-10 11:52:54] [tijori]   no match: "Kesar India Ltd"
+[2026-04-10 11:52:54] [tijori]   no match: "NSE:ANANDRATHI"
+[2026-04-10 11:52:54] [tijori]   no match: "NSE:GMBREW"
+[2026-04-10 11:52:54] [tijori]   no match: "NSE:KRISHANA"
+[2026-04-10 11:52:54] [tijori]   no match: "Operating Profit Cr"
+[2026-04-10 11:52:54] [tijori]   no match: "PAT Cr"
+[2026-04-10 11:52:54] [tijori]   no match: "Revenue Cr"
+[2026-04-10 11:52:54] [tijori]   no match: "Tata Consultancy Services Ltd"
+[2026-04-10 11:52:54] [tijori] ✅ Poll done. 0/11 updated.
+[2026-04-10 11:52:56] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-10 11:52:56] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-10 11:52:56] [stockscans] ✓ Using 5 rows from /api/company/results/scan
+[2026-04-10 11:52:56] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-10 11:52:56] [stockscans]     .companyId: NSE:TCS
+[2026-04-10 11:52:56] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"C","Name":"Tata Consultancy Services Ltd","Last Result Date":"2026-04-09","Price To Earnings":18.56,"Market Capitalization":913313.83}
+[2026-04-10 11:52:56] [stockscans]     .resultTable: Object{C, S} = {"C":[["","YoY","QoQ","202603","202512","202503"],["Revenue",9.65,5.38,70698,67087,64479],["Operating Profit",13.52,5.51,19276,18269,16980],["OPM",null,null,27.27,27.23,26.33],["PAT",12.13,28.58,13784
+[2026-04-10 11:52:56] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tj1cszmtkhc2nvlskahhvhcn.pdf","hasNotes":false}
+[2026-04-10 11:52:56] [stockscans] Normalizing 5 raw rows…
+[2026-04-10 11:52:56] [stockscans]   → 5 valid companies after normalization
+[2026-04-10 11:52:56] [stockscans] ✅ Poll done. 5 total, 0 new.
+[2026-04-10 12:02:49] [polling] 10m interval — triggering StockScans poll…
+[2026-04-10 12:02:49] [stockscans] ⏳ Starting poll…
+[2026-04-10 12:02:49] [stockscans] Launching browser…
+[2026-04-10 12:02:50] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-10 12:02:52] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-10 12:02:55] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-10 12:02:55] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-10 12:02:55] [stockscans] ✓ Using 5 rows from /api/company/results/scan
+[2026-04-10 12:02:55] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-10 12:02:55] [stockscans]     .companyId: NSE:TCS
+[2026-04-10 12:02:55] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"C","Name":"Tata Consultancy Services Ltd","Last Result Date":"2026-04-09","Price To Earnings":18.56,"Market Capitalization":913313.83}
+[2026-04-10 12:02:55] [stockscans]     .resultTable: Object{C, S} = {"C":[["","YoY","QoQ","202603","202512","202503"],["Revenue",9.65,5.38,70698,67087,64479],["Operating Profit",13.52,5.51,19276,18269,16980],["OPM",null,null,27.27,27.23,26.33],["PAT",12.13,28.58,13784
+[2026-04-10 12:02:55] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tj1cszmtkhc2nvlskahhvhcn.pdf","hasNotes":false}
+[2026-04-10 12:02:55] [stockscans] Normalizing 5 raw rows…
+[2026-04-10 12:02:55] [stockscans]   → 5 valid companies after normalization
+[2026-04-10 12:02:55] [stockscans] ✅ Poll done. 5 total, 0 new.
+[2026-04-10 12:07:53] [config] PORT=3077
+[2026-04-10 12:07:53] [config] ADMIN_KEY=****-key
+[2026-04-10 12:07:53] [config] X_BEARER_TOKEN=✗ not set — mock sentiment mode
+[2026-04-10 12:07:53] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-10 12:07:53] [config] USERS=alice, bob
+[2026-04-10 12:07:53] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-10 12:07:53] [db] Migrated: added audio_url column
+[2026-04-10 12:07:53] [db] Tables ready. 14 existing events in DB.
+[2026-04-10 12:07:53] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:07:53] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-10 12:07:53] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-10 12:07:53] [server] 🔑 Admin key: ****-key
+[2026-04-10 12:07:53] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:07:53] [polling] Running initial polls on startup…
+[2026-04-10 12:07:53] [stockscans] ⏳ Starting poll…
+[2026-04-10 12:07:53] [stockscans] Launching browser…
+[2026-04-10 12:07:53] [tijori] ⏳ Starting poll. 11 pending events to check.
+[2026-04-10 12:07:53] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-10 12:07:53] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-10 12:07:54] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-10 12:07:54] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-10 12:07:56] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-10 12:07:56] [tijori] Cloudflare cleared. Calling /api/v1/concalls/list…
+[2026-04-10 12:07:56] [tijori] API response: HTTP 200
+[2026-04-10 12:07:56] [tijori] ✓ Got 100 concalls from API.
+[2026-04-10 12:07:56] [tijori]   matched "BSE:KESAR" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "EPS ₹" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "NSE:ANANDRATHI" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "NSE:GMBREW" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "NSE:KRISHANA" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "Operating Profit Cr" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "PAT Cr" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "Revenue Cr" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-10 12:07:56] [tijori] ✅ Poll done. 0/11 updated.
+[2026-04-10 12:07:59] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-10 12:07:59] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-10 12:07:59] [stockscans] ✓ Using 5 rows from /api/company/results/scan
+[2026-04-10 12:07:59] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-10 12:07:59] [stockscans]     .companyId: NSE:TCS
+[2026-04-10 12:07:59] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"C","Name":"Tata Consultancy Services Ltd","Last Result Date":"2026-04-09","Price To Earnings":18.56,"Market Capitalization":913313.83}
+[2026-04-10 12:07:59] [stockscans]     .resultTable: Object{C, S} = {"C":[["","YoY","QoQ","202603","202512","202503"],["Revenue",9.65,5.38,70698,67087,64479],["Operating Profit",13.52,5.51,19276,18269,16980],["OPM",null,null,27.27,27.23,26.33],["PAT",12.13,28.58,13784
+[2026-04-10 12:07:59] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tj1cszmtkhc2nvlskahhvhcn.pdf","hasNotes":false}
+[2026-04-10 12:07:59] [stockscans] Normalizing 5 raw rows…
+[2026-04-10 12:07:59] [stockscans]   → 5 valid companies after normalization
+[2026-04-10 12:07:59] [stockscans] ✅ Poll done. 5 total, 0 new.
+[2026-04-10 12:08:11] [auth] ✓ Login: "alice"
+[2026-04-10 12:09:47] [config] PORT=3077
+[2026-04-10 12:09:47] [config] ADMIN_KEY=****-key
+[2026-04-10 12:09:47] [config] X_BEARER_TOKEN=✗ not set — mock sentiment mode
+[2026-04-10 12:09:47] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-10 12:09:47] [config] USERS=alice, bob
+[2026-04-10 12:09:47] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-10 12:09:47] [db] Tables ready. 14 existing events in DB.
+[2026-04-10 12:09:47] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:09:47] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-10 12:09:47] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-10 12:09:47] [server] 🔑 Admin key: ****-key
+[2026-04-10 12:09:47] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:09:47] [polling] Running initial polls on startup…
+[2026-04-10 12:09:47] [stockscans] ⏳ Starting poll…
+[2026-04-10 12:09:47] [stockscans] Launching browser…
+[2026-04-10 12:09:47] [tijori] ⏳ Starting poll. 11 pending events to check.
+[2026-04-10 12:09:47] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-10 12:09:47] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-10 12:09:48] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-10 12:09:48] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-10 12:09:50] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-10 12:09:50] [tijori] Cloudflare cleared. Calling /api/v1/concalls/list…
+[2026-04-10 12:09:50] [tijori] API response: HTTP 200
+[2026-04-10 12:09:50] [tijori] ✓ Got 100 concalls from API.
+[2026-04-10 12:09:50] [tijori]   matched "BSE:KESAR" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "EPS ₹" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "NSE:ANANDRATHI" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "NSE:GMBREW" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "NSE:KRISHANA" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "Operating Profit Cr" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "PAT Cr" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "Revenue Cr" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-10 12:09:50] [tijori] ✅ Poll done. 0/11 updated.
+[2026-04-10 12:09:53] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-10 12:09:53] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-10 12:09:53] [stockscans] ✓ Using 5 rows from /api/company/results/scan
+[2026-04-10 12:09:53] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-10 12:09:53] [stockscans]     .companyId: NSE:TCS
+[2026-04-10 12:09:53] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"C","Name":"Tata Consultancy Services Ltd","Last Result Date":"2026-04-09","Price To Earnings":18.56,"Market Capitalization":913313.83}
+[2026-04-10 12:09:53] [stockscans]     .resultTable: Object{C, S} = {"C":[["","YoY","QoQ","202603","202512","202503"],["Revenue",9.65,5.38,70698,67087,64479],["Operating Profit",13.52,5.51,19276,18269,16980],["OPM",null,null,27.27,27.23,26.33],["PAT",12.13,28.58,13784
+[2026-04-10 12:09:53] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tj1cszmtkhc2nvlskahhvhcn.pdf","hasNotes":false}
+[2026-04-10 12:09:53] [stockscans] Normalizing 5 raw rows…
+[2026-04-10 12:09:53] [stockscans]   → 5 valid companies after normalization
+[2026-04-10 12:09:53] [stockscans] ✅ Poll done. 5 total, 0 new.
+[2026-04-10 12:09:55] [auth] ✗ Failed login attempt: "bob"
+[2026-04-10 12:10:02] [auth] ✓ Login: "bob"
+[2026-04-10 12:12:13] [config] PORT=3077
+[2026-04-10 12:12:13] [config] ADMIN_KEY=****-key
+[2026-04-10 12:12:13] [config] X_BEARER_TOKEN=✗ not set — mock sentiment mode
+[2026-04-10 12:12:13] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-10 12:12:13] [config] USERS=alice, bob
+[2026-04-10 12:12:13] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-10 12:12:13] [db] Migrated: reset 3 rows with old-style transcript URLs back to pending
+[2026-04-10 12:12:13] [db] Tables ready. 14 existing events in DB.
+[2026-04-10 12:12:13] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:12:13] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-10 12:12:13] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-10 12:12:13] [server] 🔑 Admin key: ****-key
+[2026-04-10 12:12:13] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:12:13] [polling] Running initial polls on startup…
+[2026-04-10 12:12:13] [stockscans] ⏳ Starting poll…
+[2026-04-10 12:12:13] [stockscans] Launching browser…
+[2026-04-10 12:12:13] [tijori] ⏳ Starting poll. 14 pending events to check.
+[2026-04-10 12:12:13] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-10 12:12:13] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-10 12:12:13] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-10 12:12:13] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-10 12:12:15] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-10 12:12:16] [tijori] Cloudflare cleared. Calling /api/v1/concalls/list…
+[2026-04-10 12:12:16] [tijori] API response: HTTP 200
+[2026-04-10 12:12:16] [tijori] ✓ Got 100 concalls from API.
+[2026-04-10 12:12:16] [tijori]   matched "Anand Rathi Wealth Ltd" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "BSE:KESAR" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "EPS ₹" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "Krishana Phoschem Ltd" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "NSE:ANANDRATHI" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "NSE:GMBREW" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "NSE:KRISHANA" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "NSE:TCS" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "Operating Profit Cr" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "PAT Cr" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "Revenue Cr" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-10 12:12:16] [tijori] ✅ Poll done. 0/14 updated.
+[2026-04-10 12:12:18] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-10 12:12:18] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-10 12:12:18] [stockscans] ✓ Using 5 rows from /api/company/results/scan
+[2026-04-10 12:12:18] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-10 12:12:18] [stockscans]     .companyId: NSE:TCS
+[2026-04-10 12:12:18] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"C","Name":"Tata Consultancy Services Ltd","Last Result Date":"2026-04-09","Price To Earnings":18.56,"Market Capitalization":913313.83}
+[2026-04-10 12:12:18] [stockscans]     .resultTable: Object{C, S} = {"C":[["","YoY","QoQ","202603","202512","202503"],["Revenue",9.65,5.38,70698,67087,64479],["Operating Profit",13.52,5.51,19276,18269,16980],["OPM",null,null,27.27,27.23,26.33],["PAT",12.13,28.58,13784
+[2026-04-10 12:12:18] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tj1cszmtkhc2nvlskahhvhcn.pdf","hasNotes":false}
+[2026-04-10 12:12:19] [stockscans] Normalizing 5 raw rows…
+[2026-04-10 12:12:19] [stockscans]   → 5 valid companies after normalization
+[2026-04-10 12:12:19] [stockscans] ✅ Poll done. 5 total, 0 new.
+[2026-04-10 12:12:26] [auth] ✓ Login: "bob"
+[2026-04-10 12:15:13] [config] PORT=3077
+[2026-04-10 12:15:13] [config] ADMIN_KEY=****-key
+[2026-04-10 12:15:13] [config] X_BEARER_TOKEN=✗ not set — mock sentiment mode
+[2026-04-10 12:15:13] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-10 12:15:13] [config] USERS=alice, bob
+[2026-04-10 12:15:13] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-10 12:15:13] [db] Tables ready. 14 existing events in DB.
+[2026-04-10 12:15:13] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:15:13] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-10 12:15:13] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-10 12:15:13] [server] 🔑 Admin key: ****-key
+[2026-04-10 12:15:13] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:15:13] [polling] Running initial polls on startup…
+[2026-04-10 12:15:13] [stockscans] ⏳ Starting poll…
+[2026-04-10 12:15:13] [stockscans] Launching browser…
+[2026-04-10 12:15:13] [tijori] ⏳ Starting poll. 14 pending + 0 needing URL refresh.
+[2026-04-10 12:15:13] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-10 12:15:13] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-10 12:15:14] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-10 12:15:14] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-10 12:15:15] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-10 12:15:16] [tijori] Cloudflare cleared. Calling /api/v1/concalls/list…
+[2026-04-10 12:15:16] [tijori] API response: HTTP 200
+[2026-04-10 12:15:16] [tijori] ✓ Got 100 concalls from API.
+[2026-04-10 12:15:16] [tijori]   matched "Anand Rathi Wealth Ltd" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "BSE:KESAR" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "EPS ₹" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "Krishana Phoschem Ltd" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "NSE:ANANDRATHI" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "NSE:GMBREW" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "NSE:KRISHANA" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "NSE:TCS" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "Operating Profit Cr" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "PAT Cr" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "Revenue Cr" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-10 12:15:16] [tijori] ✅ Poll done. 0/14 updated.
+[2026-04-10 12:15:18] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-10 12:15:18] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-10 12:15:18] [stockscans] ✓ Using 5 rows from /api/company/results/scan
+[2026-04-10 12:15:18] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-10 12:15:18] [stockscans]     .companyId: NSE:TCS
+[2026-04-10 12:15:18] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"C","Name":"Tata Consultancy Services Ltd","Last Result Date":"2026-04-09","Price To Earnings":18.56,"Market Capitalization":913313.83}
+[2026-04-10 12:15:18] [stockscans]     .resultTable: Object{C, S} = {"C":[["","YoY","QoQ","202603","202512","202503"],["Revenue",9.65,5.38,70698,67087,64479],["Operating Profit",13.52,5.51,19276,18269,16980],["OPM",null,null,27.27,27.23,26.33],["PAT",12.13,28.58,13784
+[2026-04-10 12:15:18] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tj1cszmtkhc2nvlskahhvhcn.pdf","hasNotes":false}
+[2026-04-10 12:15:18] [stockscans] Normalizing 5 raw rows…
+[2026-04-10 12:15:18] [stockscans]   → 5 valid companies after normalization
+[2026-04-10 12:15:18] [stockscans] ✅ Poll done. 5 total, 0 new.
+[2026-04-10 12:15:23] [auth] ✓ Login: "bob"
+[2026-04-10 12:18:11] [config] PORT=3077
+[2026-04-10 12:18:11] [config] ADMIN_KEY=****-key
+[2026-04-10 12:18:11] [config] X_BEARER_TOKEN=✗ not set — mock sentiment mode
+[2026-04-10 12:18:11] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-10 12:18:11] [config] USERS=alice, bob
+[2026-04-10 12:18:11] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-10 12:18:11] [db] Tables ready. 14 existing events in DB.
+[2026-04-10 12:18:11] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:18:11] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-10 12:18:11] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-10 12:18:11] [server] 🔑 Admin key: ****-key
+[2026-04-10 12:18:11] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:18:11] [polling] Running initial polls on startup…
+[2026-04-10 12:18:11] [stockscans] ⏳ Starting poll…
+[2026-04-10 12:18:11] [stockscans] Launching browser…
+[2026-04-10 12:18:11] [tijori] ⏳ Starting poll. 14 pending + 0 needing URL refresh.
+[2026-04-10 12:18:11] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-10 12:18:11] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-10 12:18:12] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-10 12:18:12] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-10 12:18:13] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-10 12:18:14] [tijori] Cloudflare cleared. Calling /api/v1/concalls/list…
+[2026-04-10 12:18:14] [tijori] API response: HTTP 200
+[2026-04-10 12:18:14] [tijori] ✓ Got 100 concalls from API.
+[2026-04-10 12:18:14] [tijori]   matched "Anand Rathi Wealth Ltd" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "BSE:KESAR" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "EPS ₹" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "Krishana Phoschem Ltd" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "NSE:ANANDRATHI" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "NSE:GMBREW" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "NSE:KRISHANA" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "NSE:TCS" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "Operating Profit Cr" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "PAT Cr" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "Revenue Cr" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-10 12:18:14] [tijori] ✅ Poll done. 0/14 updated.
+[2026-04-10 12:18:16] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-10 12:18:16] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-10 12:18:16] [stockscans] ✓ Using 5 rows from /api/company/results/scan
+[2026-04-10 12:18:16] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-10 12:18:16] [stockscans]     .companyId: NSE:TCS
+[2026-04-10 12:18:16] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"C","Name":"Tata Consultancy Services Ltd","Last Result Date":"2026-04-09","Price To Earnings":18.56,"Market Capitalization":913313.83}
+[2026-04-10 12:18:16] [stockscans]     .resultTable: Object{C, S} = {"C":[["","YoY","QoQ","202603","202512","202503"],["Revenue",9.65,5.38,70698,67087,64479],["Operating Profit",13.52,5.51,19276,18269,16980],["OPM",null,null,27.27,27.23,26.33],["PAT",12.13,28.58,13784
+[2026-04-10 12:18:16] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tj1cszmtkhc2nvlskahhvhcn.pdf","hasNotes":false}
+[2026-04-10 12:18:17] [stockscans] Normalizing 5 raw rows…
+[2026-04-10 12:18:17] [stockscans]   → 5 valid companies after normalization
+[2026-04-10 12:18:17] [stockscans] ✅ Poll done. 5 total, 0 new.
+[2026-04-10 12:18:36] [auth] ✓ Login: "bob"
+[2026-04-10 12:26:09] [config] PORT=3077
+[2026-04-10 12:26:09] [config] ADMIN_KEY=****-key
+[2026-04-10 12:26:09] [config] X_BEARER_TOKEN=✗ not set — mock sentiment mode
+[2026-04-10 12:26:09] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-10 12:26:09] [config] USERS=alice, bob
+[2026-04-10 12:26:09] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-10 12:26:09] [db] Tables ready. 14 existing events in DB.
+[2026-04-10 12:26:09] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:26:09] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-10 12:26:09] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-10 12:26:09] [server] 🔑 Admin key: ****-key
+[2026-04-10 12:26:09] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-10 12:26:09] [polling] Running initial polls on startup…
+[2026-04-10 12:26:09] [stockscans] ⏳ Starting poll…
+[2026-04-10 12:26:09] [stockscans] Launching browser…
+[2026-04-10 12:26:09] [tijori] ⏳ Starting poll. 14 pending + 0 needing URL refresh.
+[2026-04-10 12:26:09] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-10 12:26:09] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-10 12:26:10] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-10 12:26:10] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-10 12:26:14] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-10 12:26:15] [tijori] Cloudflare cleared. Calling /api/v1/concalls/list…
+[2026-04-10 12:26:15] [tijori] API response: HTTP 200
+[2026-04-10 12:26:15] [tijori] ✓ Got 100 concalls from API.
+[2026-04-10 12:26:15] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-10 12:26:15] [tijori]   no match: "BSE:KESAR"
+[2026-04-10 12:26:15] [tijori]   no match: "EPS ₹"
+[2026-04-10 12:26:15] [tijori]   no match: "G M Breweries Ltd"
+[2026-04-10 12:26:15] [tijori]   no match: "Kesar India Ltd"
+[2026-04-10 12:26:15] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-10 12:26:15] [tijori]   no match: "NSE:ANANDRATHI"
+[2026-04-10 12:26:15] [tijori]   no match: "NSE:GMBREW"
+[2026-04-10 12:26:15] [tijori]   no match: "NSE:KRISHANA"
+[2026-04-10 12:26:15] [tijori]   ✓ updated: "NSE:TCS" (slug: tata-consultancy-services-limited)
+[2026-04-10 12:26:15] [tijori]   no match: "Operating Profit Cr"
+[2026-04-10 12:26:15] [tijori]   no match: "PAT Cr"
+[2026-04-10 12:26:15] [tijori]   no match: "Revenue Cr"
+[2026-04-10 12:26:15] [tijori]   no match: "Tata Consultancy Services Ltd"
+[2026-04-10 12:26:15] [tijori] ✅ Poll done. 3/14 updated.
+[2026-04-10 12:26:17] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-10 12:26:17] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-10 12:26:17] [stockscans] ✓ Using 5 rows from /api/company/results/scan
+[2026-04-10 12:26:17] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-10 12:26:17] [stockscans]     .companyId: NSE:TCS
+[2026-04-10 12:26:17] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"C","Name":"Tata Consultancy Services Ltd","Last Result Date":"2026-04-09","Price To Earnings":18.56,"Market Capitalization":913313.83}
+[2026-04-10 12:26:17] [stockscans]     .resultTable: Object{C, S} = {"C":[["","YoY","QoQ","202603","202512","202503"],["Revenue",9.65,5.38,70698,67087,64479],["Operating Profit",13.52,5.51,19276,18269,16980],["OPM",null,null,27.27,27.23,26.33],["PAT",12.13,28.58,13784
+[2026-04-10 12:26:17] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tj1cszmtkhc2nvlskahhvhcn.pdf","hasNotes":false}
+[2026-04-10 12:26:17] [stockscans] Normalizing 5 raw rows…
+[2026-04-10 12:26:17] [stockscans]   → 5 valid companies after normalization
+[2026-04-10 12:26:17] [stockscans] ✅ Poll done. 5 total, 0 new.
+[2026-04-10 12:26:19] [auth] ✓ Login: "bob"

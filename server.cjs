@@ -25,13 +25,19 @@ const Database = require('better-sqlite3');
 const puppeteer = require('puppeteer');
 
 // ─── Logger ───────────────────────────────────────────────────────────────────
+const logStream = fs.createWriteStream(path.join(__dirname, 'concall_monitor.log'), { flags: 'a' });
+
 function log(tag, msg, ...args) {
   const ts = new Date().toISOString().replace('T', ' ').slice(0, 19);
-  console.log(`[${ts}] [${tag}] ${msg}`, ...args);
+  const line = args.length ? `[${ts}] [${tag}] ${msg} ${args.join(' ')}` : `[${ts}] [${tag}] ${msg}`;
+  console.log(line);
+  logStream.write(line + '\n');
 }
 function logErr(tag, msg, ...args) {
   const ts = new Date().toISOString().replace('T', ' ').slice(0, 19);
-  console.error(`[${ts}] [${tag}] ❌ ${msg}`, ...args);
+  const line = args.length ? `[${ts}] [${tag}] ❌ ${msg} ${args.join(' ')}` : `[${ts}] [${tag}] ❌ ${msg}`;
+  console.error(line);
+  logStream.write(line + '\n');
 }
 
 // ─── Config ──────────────────────────────────────────────────────────────────
@@ -98,6 +104,7 @@ db.exec(`
     transcript_url TEXT,
     transcript_summary_url TEXT,
     transcript_summary_text TEXT,
+    audio_url TEXT,
     is_read INTEGER DEFAULT 0,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL
@@ -112,6 +119,14 @@ db.exec(`
   );
 `);
 
+// Migrate: add audio_url column if missing
+const cols = db.prepare("PRAGMA table_info(result_events)").all().map(c => c.name);
+if (!cols.includes('audio_url')) {
+  db.exec("ALTER TABLE result_events ADD COLUMN audio_url TEXT");
+  log('db', 'Migrated: added audio_url column');
+}
+
+
 const dbCount = db.prepare('SELECT COUNT(*) as c FROM result_events').get().c;
 log('db', `Tables ready. ${dbCount} existing events in DB.`);
 
@@ -125,7 +140,7 @@ const stmts = {
       ebitda_yoy, ebitda_current, pat_yoy, pat_current,
       eps_yoy, eps_current, chatter_sentiment, chatter_summary,
       top_post_links, transcript_status, transcript_url,
-      transcript_summary_url, transcript_summary_text,
+      transcript_summary_url, transcript_summary_text, audio_url,
       is_read, created_at, updated_at
     ) VALUES (
       @event_id, @company_name, @result_date, @screener_url, @pdf_url,
@@ -133,7 +148,7 @@ const stmts = {
       @ebitda_yoy, @ebitda_current, @pat_yoy, @pat_current,
       @eps_yoy, @eps_current, @chatter_sentiment, @chatter_summary,
       @top_post_links, @transcript_status, @transcript_url,
-      @transcript_summary_url, @transcript_summary_text,
+      @transcript_summary_url, @transcript_summary_text, @audio_url,
       @is_read, @created_at, @updated_at
     )
     ON CONFLICT(event_id) DO UPDATE SET
@@ -158,6 +173,7 @@ const stmts = {
       transcript_url = COALESCE(excluded.transcript_url, transcript_url),
       transcript_summary_url = COALESCE(excluded.transcript_summary_url, transcript_summary_url),
       transcript_summary_text = COALESCE(excluded.transcript_summary_text, transcript_summary_text),
+      audio_url = COALESCE(excluded.audio_url, audio_url),
       is_read = excluded.is_read,
       updated_at = excluded.updated_at
   `),
@@ -197,6 +213,7 @@ function upsertEvent(evt) {
     transcript_url: evt.transcript_url || null,
     transcript_summary_url: evt.transcript_summary_url || null,
     transcript_summary_text: evt.transcript_summary_text || null,
+    audio_url: evt.audio_url || null,
     is_read: evt.is_read ? 1 : 0,
     created_at: evt.created_at || now,
     updated_at: now,
@@ -703,6 +720,7 @@ async function fetchTijoriConcalls() {
         const resp = await fetch('/api/v1/concalls/list?page=1&mcap=all&upcoming=false&page_size=100', {
           headers: { 'Authorization': `Bearer ${key}`, 'Accept': 'application/json' },
         });
+        console.dir(resp , {depth: null})
         const text = await resp.text();
         return { status: resp.status, body: text };
       } catch (e) {
@@ -716,6 +734,11 @@ async function fetchTijoriConcalls() {
     if (result.error) throw new Error(result.error);
 
     log('tijori', `API response: HTTP ${result.status}`);
+    fs.writeFileSync(
+      path.join(__dirname, 'concall_api_response.txt'),
+      `[${new Date().toISOString()}] HTTP ${result.status}\n\n${result.body}\n`,
+      'utf8'
+    );
     if (result.status !== 200) {
       logErr('tijori', `Non-200 response: ${result.body.slice(0, 300)}`);
       return [];
@@ -735,9 +758,19 @@ async function pollTijori() {
   const pollTime = new Date().toISOString();
   const pending = getAllEvents({ transcript_status: 'pending' });
 
-  log('tijori', `⏳ Starting poll. ${pending.length} pending events to check.`);
-  if (pending.length === 0) {
-    log('tijori', 'Nothing pending — skipping.');
+  // Also pick up 'available' rows that don't yet have a direct PDF URL — these
+  // were stored with the old website-page URL and need the recording.transcript_pdf.
+  const needsRefresh = db.prepare(`
+    SELECT * FROM result_events
+    WHERE transcript_status = 'available'
+      AND (transcript_url IS NULL OR transcript_url NOT LIKE '%.pdf')
+  `).all();
+
+  const toProcess = [...pending, ...needsRefresh];
+
+  log('tijori', `⏳ Starting poll. ${pending.length} pending + ${needsRefresh.length} needing URL refresh.`);
+  if (toProcess.length === 0) {
+    log('tijori', 'Nothing to process — skipping.');
     return;
   }
 
@@ -756,7 +789,7 @@ async function pollTijori() {
         log('tijori', `  [mock] promoted: ${evt.company_name}`);
       }
     }
-    addPollingLog({ source: 'tijori', poll_time: pollTime, status: 'ok', notes: `Mock mode. ${pending.length} pending rows.` });
+    addPollingLog({ source: 'tijori', poll_time: pollTime, status: 'ok', notes: `Mock mode. ${toProcess.length} rows processed.` });
     return;
   }
 
@@ -764,10 +797,10 @@ async function pollTijori() {
     const concalls = await fetchTijoriConcalls();
 
     let updated = 0;
-    for (const evt of pending) {
+    for (const evt of toProcess) {
       const evtName = evt.company_name.toLowerCase().trim();
       const match = concalls.find(c => {
-        const name = (c.company_info?.name || c.name || '').toLowerCase().trim();
+        const name = (c.company_info?.name || '').toLowerCase().trim();
         return name === evtName || name.includes(evtName) || evtName.includes(name);
       });
 
@@ -776,21 +809,31 @@ async function pollTijori() {
         continue;
       }
 
-      const transcript = match.transcript || null;
-      const aiSummary  = match.ai_summary || match.summary_highlight || null;
-      if (!transcript && !aiSummary) {
-        log('tijori', `  matched "${evt.company_name}" but no transcript/summary yet`);
+      const transcriptPdf = match.transcript || null;
+      const audioUrl      = match.recording_link || null;
+      const highlight     = match.summary_highlight || null;
+
+      // Build summary text from highlight + call summary bullets if available
+      let aiSummary = match.ai_summary || null;
+      if (typeof aiSummary === 'string') { try { aiSummary = JSON.parse(aiSummary); } catch { aiSummary = null; } }
+      const callSummaryKey = aiSummary && Object.keys(aiSummary).find(k => k.toLowerCase().includes('call summary'));
+      const bullets = callSummaryKey ? (aiSummary[callSummaryKey] || []).slice(0, 5) : [];
+      const summaryText = [highlight, ...bullets].filter(Boolean).join('\n') || null;
+
+      if (!transcriptPdf && !audioUrl && !summaryText) {
+        log('tijori', `  matched "${evt.company_name}" but no recording/summary yet`);
         continue;
       }
 
       const slug = match.company_info?.slug || '';
-      const concallUrl = slug ? `https://www.tijoristack.ai/concalls/${slug}` : null;
+      const concallPageUrl = slug ? `https://www.tijoristack.ai/concalls/${slug}` : null;
       upsertEvent({
         ...evt,
         transcript_status: 'available',
-        transcript_url: concallUrl,
-        transcript_summary_url: concallUrl ? `${concallUrl}#summary` : null,
-        transcript_summary_text: aiSummary || (transcript ? transcript.slice(0, 500) : null),
+        transcript_url: transcriptPdf,
+        transcript_summary_url: concallPageUrl ? `${concallPageUrl}#summary` : null,
+        transcript_summary_text: summaryText,
+        audio_url: audioUrl,
       });
       updated++;
       log('tijori', `  ✓ updated: "${evt.company_name}" (slug: ${slug})`);
@@ -800,9 +843,9 @@ async function pollTijori() {
       source: 'tijori',
       poll_time: pollTime,
       status: 'ok',
-      notes: `Fetched ${concalls.length} concalls. Updated ${updated} of ${pending.length} pending.`,
+      notes: `Fetched ${concalls.length} concalls. Updated ${updated} of ${toProcess.length} processed.`,
     });
-    log('tijori', `✅ Poll done. ${updated}/${pending.length} updated.`);
+    log('tijori', `✅ Poll done. ${updated}/${toProcess.length} updated.`);
   } catch (err) {
     addPollingLog({ source: 'tijori', poll_time: pollTime, status: 'error', notes: err.message });
     logErr('tijori', `Poll failed: ${err.message}`);
