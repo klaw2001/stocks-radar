@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results Radar — User Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+      --accent: #3b82f6;
+      --accent-soft: #eff6ff;
+      --green: #10b981;
+      --green-soft: #ecfdf5;
+      --amber: #f59e0b;
+      --amber-soft: #fffbeb;
+      --red: #ef4444;
+      --red-soft: #fef2f2;
+      --purple: #8b5cf6;
+      --purple-soft: #f5f3ff;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* ── Print styles ── */
+    @media print {
+      .no-print { display: none !important; }
+      body { font-size: 13px; }
+      .page-break { page-break-before: always; }
+      .cover { page-break-after: always; min-height: unset; padding: 60px 48px; }
+      section { page-break-inside: avoid; }
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 860px; margin: 0 auto; padding: 0 32px 80px; }
+
+    /* ── Cover ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(145deg, #0f172a 0%, #1e293b 60%, #0f172a 100%);
+      color: white;
+      padding: 80px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cover-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.4);
+      color: #93c5fd; border-radius: 20px; padding: 4px 14px;
+      font-size: 12px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; margin-bottom: 32px;
+    }
+    .cover h1 {
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 20px;
+    }
+    .cover h1 span { color: #60a5fa; }
+    .cover p {
+      font-size: 18px;
+      color: #94a3b8;
+      max-width: 540px;
+      margin-bottom: 48px;
+      line-height: 1.7;
+    }
+    .cover-meta {
+      display: flex; gap: 32px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 32px;
+      font-size: 13px; color: #64748b;
+    }
+    .cover-meta strong { color: #94a3b8; display: block; margin-bottom: 2px; }
+
+    /* ── Print button ── */
+    .print-btn {
+      position: fixed; bottom: 32px; right: 32px;
+      background: #3b82f6; color: white;
+      border: none; border-radius: 10px;
+      padding: 12px 22px; font-size: 14px; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(59,130,246,0.4);
+      transition: transform .15s, box-shadow .15s;
+      z-index: 999;
+    }
+    .print-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(59,130,246,0.5); }
+
+    /* ── Section header ── */
+    .section-header {
+      display: flex; align-items: center; gap: 12px;
+      margin: 56px 0 24px;
+    }
+    .section-num {
+      width: 32px; height: 32px;
+      background: var(--accent); color: white;
+      border-radius: 8px; font-size: 14px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .section-header h2 {
+      font-size: 22px; font-weight: 700; color: var(--text);
+    }
+    h3 { font-size: 16px; font-weight: 600; margin: 24px 0 10px; }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .kpi-card .num { font-size: 28px; font-weight: 800; color: var(--accent); }
+    .kpi-card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
+
+    /* ── Flowchart ── */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 24px 0;
+      position: relative;
+    }
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      position: relative;
+      padding-bottom: 0;
+    }
+    .flow-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 20px; top: 44px;
+      width: 2px; height: calc(100% - 12px);
+      background: linear-gradient(to bottom, var(--accent), var(--green));
+    }
+    .flow-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--accent); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .flow-icon.green { background: var(--green); }
+    .flow-icon.amber { background: var(--amber); }
+    .flow-icon.purple { background: var(--purple); }
+    .flow-body { padding-bottom: 28px; flex: 1; }
+    .flow-body h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .flow-body p { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+    /* ── Feature table ── */
+    .feat-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+    .feat-table th {
+      text-align: left; padding: 10px 14px;
+      background: var(--surface); border-bottom: 2px solid var(--border);
+      font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted);
+    }
+    .feat-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .feat-table tr:last-child td { border-bottom: none; }
+    .feat-table td:first-child { font-weight: 600; white-space: nowrap; }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-block; border-radius: 5px; padding: 2px 8px;
+      font-size: 12px; font-weight: 600; line-height: 1.5;
+    }
+    .badge.green  { background: var(--green-soft);  color: #065f46; }
+    .badge.amber  { background: var(--amber-soft);  color: #92400e; }
+    .badge.red    { background: var(--red-soft);    color: #991b1b; }
+    .badge.blue   { background: var(--accent-soft); color: #1e40af; }
+    .badge.purple { background: var(--purple-soft); color: #5b21b6; }
+
+    /* ── Step list ── */
+    .steps { counter-reset: step; list-style: none; margin: 16px 0; }
+    .steps li {
+      counter-increment: step;
+      display: flex; gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .steps li::before {
+      content: counter(step);
+      min-width: 26px; height: 26px;
+      background: var(--accent); color: white;
+      border-radius: 50%; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .steps li span { font-size: 14px; line-height: 1.6; }
+    .steps li strong { font-weight: 600; }
+
+    /* ── Tip box ── */
+    .tip {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--accent-soft); border: 1px solid #bfdbfe;
+      border-radius: 10px; padding: 14px 18px; margin: 20px 0;
+      font-size: 14px;
+    }
+    .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .tip p { color: #1e40af; line-height: 1.55; }
+
+    /* ── Use case cards ── */
+    .use-case {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .use-case-header {
+      background: var(--surface);
+      padding: 16px 22px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .use-case-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .use-case-icon.blue   { background: var(--accent-soft); }
+    .use-case-icon.green  { background: var(--green-soft); }
+    .use-case-icon.purple { background: var(--purple-soft); }
+    .use-case-header h3 { margin: 0; font-size: 16px; font-weight: 700; }
+    .use-case-header p  { font-size: 13px; color: var(--muted); margin: 2px 0 0; }
+    .use-case-body { padding: 20px 22px; }
+
+    /* ── Glossary ── */
+    .glossary dt { font-weight: 600; font-size: 14px; margin-top: 14px; }
+    .glossary dd { font-size: 14px; color: var(--muted); margin-left: 0; line-height: 1.55; }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+    /* ── Footer ── */
+    .doc-footer {
+      text-align: center; padding: 40px 0 0;
+      font-size: 13px; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Cover page ─────────────────────────────────────────────────────────── -->
+<div class="cover">
+  <div style="max-width:640px; position:relative; z-index:1;">
+    <div class="cover-badge">📡 Results Radar</div>
+    <h1>Your Complete Guide to <span>Earnings Monitoring</span></h1>
+    <p>Everything you need to know to track company results, read AI summaries, and stay ahead of the market — no technical background required.</p>
+    <div class="cover-meta">
+      <div><strong>Platform</strong>Results Radar</div>
+      <div><strong>Audience</strong>All Users</div>
+      <div><strong>Version</strong>2.0</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Main content ───────────────────────────────────────────────────────── -->
+<div class="container">
+
+  <!-- 1. What is Results Radar -->
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>What is Results Radar?</h2>
+  </div>
+
+  <p style="color:var(--muted); margin-bottom:20px;">
+    Results Radar is an automated equity earnings monitor. It watches multiple data sources around the clock and brings you a clean, unified dashboard the moment companies publish their quarterly or annual financial results.
+  </p>
+
+  <div class="card-grid">
+    <div class="kpi-card">
+      <div class="num">10<span style="font-size:16px;font-weight:500">min</span></div>
+      <div class="label">Stock Scan refresh</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">30<span style="font-size:16px;font-weight:500">min</span></div>
+      <div class="label">Transcript check</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">Auto</div>
+      <div class="label">AI summary</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">Live</div>
+      <div class="label">Sentiment signal</div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-icon">💡</div>
+    <p>You don't need to refresh the page. The dashboard polls automatically and updates the table every few minutes.</p>
+  </div>
+
+
+  <!-- 2. How it works — Flowchart -->
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>How It Works</h2>
+  </div>
+
+  <p style="color:var(--muted); margin-bottom:28px;">
+    Results Radar runs a fully automated pipeline in the background. Here is what happens from the moment a company publishes results to when you see the data on your screen.
+  </p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-icon">📡</div>
+      <div class="flow-body">
+        <h4>Step 1 — Stock Scan detects new results</h4>
+        <p>Every 10 minutes, the system checks the Stock Scan screener for new earnings events. When a company files results, a new row is automatically added to your dashboard with the date, price, and financial metrics.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon amber">💬</div>
+      <div class="flow-body">
+        <h4>Step 2 — Social sentiment is checked</h4>
+        <p>The platform searches for recent public chatter about the company. Based on tone, posts are classified as <span class="badge green">Good</span>, <span class="badge">Neutral</span>, or <span class="badge red">Bad</span> sentiment, giving you a market pulse at a glance.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon green">🎙️</div>
+      <div class="flow-body">
+        <h4>Step 3 — Earnings call transcript is found</h4>
+        <p>Every 30 minutes, the system checks for conference call transcripts from management. When one becomes available, the row status changes from <span class="badge amber">Pending</span> to <span class="badge green">Available</span>.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon purple">🤖</div>
+      <div class="flow-body">
+        <h4>Step 4 — AI summary is generated</h4>
+        <p>An AI model reads the transcript and produces a structured summary — key highlights, guidance, management tone, and financial performance — so you can understand the call in under 2 minutes.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon">👁️</div>
+      <div class="flow-body">
+        <h4>Step 5 — You review at your pace</h4>
+        <p>Log in, scan the dashboard, read the AI summary, mark items as read, and filter by sentiment or transcript status. Everything is organised so you can prioritise what matters most.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 3. Dashboard tour -->
+  <div class="section-header" style="margin-top: 48px;">
+    <div class="section-num">3</div>
+    <h2>Dashboard Tour</h2>
+  </div>
+
+  <h3>Summary cards (top row)</h3>
+  <div class="card-grid">
+    <div class="kpi-card">
+      <div class="num" style="color:#3b82f6;">14</div>
+      <div class="label">New Today</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num" style="color:#f59e0b;">14</div>
+      <div class="label">Unread Today</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num" style="color:#10b981;">0</div>
+      <div class="label">Read Today</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num" style="color:#ef4444;">11</div>
+      <div class="label">Transcript Pending</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num" style="color:#8b5cf6;">3</div>
+      <div class="label">Transcript Available</div>
+    </div>
+  </div>
+  <p style="font-size:14px; color:var(--muted); margin-bottom:24px;">
+    These five numbers give you an instant pulse of today's activity. "Unread" means you haven't looked at that result yet. Clicking a row or its circle icon marks it as read.
+  </p>
+
+  <h3>Filter tabs</h3>
+  <div class="card" style="padding:16px 20px;">
+    <div style="display:flex; flex-wrap:wrap; gap:8px; font-size:13px;">
+      <span class="badge blue">All</span>
+      <span class="badge" style="background:#f1f5f9;color:#475569;">Unread</span>
+      <span class="badge" style="background:#f1f5f9;color:#475569;">Read</span>
+      <span class="badge amber">Transcript Pending</span>
+      <span class="badge green">Transcript Available</span>
+      <span class="badge green">Good Chatter</span>
+      <span class="badge" style="background:#f1f5f9;color:#475569;">Neutral Chatter</span>
+      <span class="badge red">Bad Chatter</span>
+    </div>
+    <p style="font-size:13px; color:var(--muted); margin-top:12px;">
+      Click any tab to filter the table instantly. Combine the search box with a filter tab to narrow further.
+    </p>
+  </div>
+
+  <h3>Table columns explained</h3>
+  <table class="feat-table">
+    <thead>
+      <tr>
+        <th>Column</th>
+        <th>What it means</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>STATUS</td>
+        <td>Circle = unread, filled circle = read. Click the circle to toggle.</td>
+      </tr>
+      <tr>
+        <td>COMPANY</td>
+        <td>Name of the company that published results.</td>
+      </tr>
+      <tr>
+        <td>DATE</td>
+        <td>Date the results were filed.</td>
+      </tr>
+      <tr>
+        <td>PRICE</td>
+        <td>Last traded price at the time of detection (₹).</td>
+      </tr>
+      <tr>
+        <td>MKT CAP (CR)</td>
+        <td>Market capitalisation in Indian Rupee crores.</td>
+      </tr>
+      <tr>
+        <td>P/E</td>
+        <td>Price-to-earnings ratio — how much investors pay per rupee of profit.</td>
+      </tr>
+      <tr>
+        <td>SALES YOY</td>
+        <td>Year-on-year revenue growth. Green = grew, red = declined.</td>
+      </tr>
+      <tr>
+        <td>SALES (CR)</td>
+        <td>Absolute revenue in crores this period.</td>
+      </tr>
+      <tr>
+        <td>EBITDA YOY</td>
+        <td>Year-on-year operating profit growth.</td>
+      </tr>
+      <tr>
+        <td>EBITDA (CR)</td>
+        <td>Absolute operating profit in crores.</td>
+      </tr>
+      <tr>
+        <td>PAT YOY</td>
+        <td>Year-on-year net profit (Profit After Tax) growth.</td>
+      </tr>
+      <tr>
+        <td>PAT (CR)</td>
+        <td>Absolute net profit in crores.</td>
+      </tr>
+      <tr>
+        <td>EPS YOY</td>
+        <td>Year-on-year earnings per share growth.</td>
+      </tr>
+      <tr>
+        <td>EPS</td>
+        <td>Earnings per share this period (₹).</td>
+      </tr>
+      <tr>
+        <td>CHATTER</td>
+        <td><span class="badge green">Good</span> <span class="badge" style="background:#f1f5f9;color:#475569;">Neutral</span> <span class="badge red">Bad</span> — AI-assessed market sentiment.</td>
+      </tr>
+      <tr>
+        <td>TRANSCRIPT</td>
+        <td><span class="badge green">Available</span> or <span class="badge amber">Pending</span> — whether the earnings call transcript is ready.</td>
+      </tr>
+      <tr>
+        <td>ACTIONS</td>
+        <td>Buttons to open the transcript, view the AI summary, or visit the source page.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Action buttons</h3>
+  <table class="feat-table">
+    <thead>
+      <tr><th>Button</th><th>What it does</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🤖</td>
+        <td>Open the AI-generated summary of the earnings call in a slide-over panel.</td>
+      </tr>
+      <tr>
+        <td>🎙️</td>
+        <td>Open the full earnings call transcript on the Tijori platform.</td>
+      </tr>
+      <tr>
+        <td>↗ (external link)</td>
+        <td>Open the original Stock Scan page for this company's results.</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- 4. Use cases -->
+  <div class="section-header page-break">
+    <div class="section-num">4</div>
+    <h2>Common Use Cases</h2>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon blue">📋</div>
+      <div>
+        <h3>Scenario A — Morning results check</h3>
+        <p>Start your day by seeing what companies reported overnight</p>
+      </div>
+    </div>
+    <div class="use-case-body">
+      <ol class="steps">
+        <li><span>Log in to Results Radar. The dashboard opens automatically on today's date.</span></li>
+        <li><span>Look at the <strong>New Today</strong> card at the top — it shows how many companies filed results.</span></li>
+        <li><span>Scan down the table. Companies with a <strong>green SALES YOY</strong> beat last year's revenue.</span></li>
+        <li><span>Click the <span class="badge amber">Transcript Pending</span> filter tab to see which companies have not yet published their management call.</span></li>
+        <li><span>For companies you've reviewed, click the circle in the STATUS column to mark them <strong>read</strong>.</span></li>
+      </ol>
+      <div class="tip">
+        <div class="tip-icon">⏱️</div>
+        <p>A full morning check typically takes 5–10 minutes on the dashboard before diving deeper into individual names.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon green">🎙️</div>
+      <div>
+        <h3>Scenario B — Reading an earnings call summary</h3>
+        <p>Get the key takeaways from management in under 2 minutes</p>
+      </div>
+    </div>
+    <div class="use-case-body">
+      <ol class="steps">
+        <li><span>Click the <span class="badge green">Transcript Available</span> filter tab to show only companies whose call transcripts are ready.</span></li>
+        <li><span>Find the company you want to review. Look for the <strong>🤖 button</strong> in the ACTIONS column.</span></li>
+        <li><span>Click 🤖 — a panel slides in from the right with the AI-generated summary.</span></li>
+        <li><span>The summary is broken into sections: <strong>Financial Performance</strong>, <strong>Key Highlights</strong>, <strong>Management Guidance</strong>, and more.</span></li>
+        <li><span>To read the full transcript, click the <strong>📄 Full Transcript</strong> link at the top of the panel.</span></li>
+        <li><span>Press <strong>Escape</strong> or click the ✕ button to close the panel.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="use-case">
+    <div class="use-case-header">
+      <div class="use-case-icon purple">📊</div>
+      <div>
+        <h3>Scenario C — Screening by sentiment</h3>
+        <p>Find companies with positive or negative market buzz quickly</p>
+      </div>
+    </div>
+    <div class="use-case-body">
+      <ol class="steps">
+        <li><span>Click the <span class="badge green">Good Chatter</span> filter tab to see companies with positive social sentiment.</span></li>
+        <li><span>Check the <strong>CHATTER</strong> column — you'll see <span class="badge green">Good</span>, <span class="badge" style="background:#f1f5f9;color:#475569;">Neutral</span>, or <span class="badge red">Bad</span> for each company.</span></li>
+        <li><span>Companies with <span class="badge red">Bad</span> sentiment may have disappointed the market — cross-check the financials to see why.</span></li>
+        <li><span>Use the <strong>search box</strong> at the top to jump directly to a specific company by name.</span></li>
+        <li><span>Combine filters — e.g., <strong>Transcript Available + Good Chatter</strong> — by clicking one tab, searching, and reviewing results.</span></li>
+      </ol>
+      <div class="tip">
+        <div class="tip-icon">💡</div>
+        <p>Sentiment is a signal, not a verdict. Always pair it with the actual financial numbers before drawing conclusions.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 5. Tips & Glossary -->
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>Quick Glossary</h2>
+  </div>
+
+  <dl class="glossary">
+    <dt>YOY (Year on Year)</dt>
+    <dd>Compares this period's number to the same period last year. A +20% YOY sales figure means the company grew revenue by 20% versus a year ago.</dd>
+
+    <dt>PAT (Profit After Tax)</dt>
+    <dd>The company's net profit — what's left after all expenses and taxes are paid. Also called "net income".</dd>
+
+    <dt>EBITDA</dt>
+    <dd>Earnings Before Interest, Tax, Depreciation and Amortisation. A measure of operating profitability that strips out financing and accounting effects.</dd>
+
+    <dt>EPS (Earnings Per Share)</dt>
+    <dd>Net profit divided by the number of shares. Higher EPS generally means more value for shareholders.</dd>
+
+    <dt>P/E (Price-to-Earnings Ratio)</dt>
+    <dd>Stock price divided by EPS. It tells you how much the market pays for each rupee of profit. A high P/E can mean high growth expectations.</dd>
+
+    <dt>Market Cap (Cr)</dt>
+    <dd>Total market value of all shares, expressed in Indian Rupee crores (1 crore = 10 million).</dd>
+
+    <dt>Transcript</dt>
+    <dd>A written record of everything said during the company's earnings conference call — management's speech and analyst Q&amp;A.</dd>
+
+    <dt>Chatter Sentiment</dt>
+    <dd>AI assessment of public posts and discussions about the company's results. Classified as Good, Neutral, or Bad.</dd>
+  </dl>
+
+  <hr />
+
+  <div class="doc-footer">
+    <p>Results Radar · Equity Earnings Monitor</p>
+    <p style="margin-top:6px;">For questions, contact your platform administrator.</p>
+  </div>
+
+</div>
+
+<!-- Print button -->
+<button class="print-btn no-print" onclick="window.print()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  Download as PDF
+</button>
+
+</body>
+</html>
