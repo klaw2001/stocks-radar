@@ -225,6 +225,7 @@
       const observer = new MutationObserver(() => {
         rrInjectButtons();
         rrAddGuideLink();
+        rrAddRefreshButton();
         rrFixLabels();
       });
       observer.observe(document.body, { childList: true, subtree: true });
@@ -301,6 +302,73 @@
       }
       // Initial attempt after React first renders
       setTimeout(rrAddGuideLink, 800);
+
+      // ── Refresh All button ───────────────────────────────────────────────
+      function rrAddRefreshButton() {
+        if (document.getElementById('rr-refresh-btn')) return;
+        const header = document.querySelector('header') || document.querySelector('nav');
+        if (!header) return;
+
+        const btn = document.createElement('button');
+        btn.id = 'rr-refresh-btn';
+        btn.title = 'Trigger a fresh poll of StockScans + Tijori now';
+        btn.textContent = '⟳ Refresh';
+        const baseStyle = [
+          'font-size:12px', 'color:#10b981', 'background:none', 'cursor:pointer',
+          'padding:4px 10px', 'border:1px solid #064e3b', 'border-radius:5px',
+          'margin-left:8px', 'white-space:nowrap', 'flex-shrink:0',
+          'display:inline-block', 'transition:color 0.15s,border-color 0.15s',
+        ].join(';');
+        btn.style.cssText = baseStyle;
+        btn.onmouseover = () => { btn.style.color = '#34d399'; btn.style.borderColor = '#065f46'; };
+        btn.onmouseout  = () => {
+          if (!btn._loading) { btn.style.color = '#10b981'; btn.style.borderColor = '#064e3b'; }
+        };
+
+        btn.onclick = async () => {
+          if (btn._loading) return;
+          btn._loading = true;
+          btn.textContent = '⟳ Polling…';
+          btn.style.color = '#64748b';
+          btn.style.borderColor = '#1e2535';
+          btn.style.cursor = 'not-allowed';
+
+          const adminKey = window.__rrAdminKey || '';
+          const headers = { 'Content-Type': 'application/json', 'X-Admin-Key': adminKey };
+
+          try {
+            const [r1, r2] = await Promise.all([
+              fetch('/api/poll/screener', { method: 'POST', headers }),
+              fetch('/api/poll/tijori',   { method: 'POST', headers }),
+            ]);
+            if (r1.ok && r2.ok) {
+              btn.textContent = '✓ Polls triggered';
+              btn.style.color = '#10b981';
+              btn.style.borderColor = '#064e3b';
+            } else {
+              btn.textContent = '✗ Error';
+              btn.style.color = '#ef4444';
+              btn.style.borderColor = '#7f1d1d';
+            }
+          } catch {
+            btn.textContent = '✗ Error';
+            btn.style.color = '#ef4444';
+            btn.style.borderColor = '#7f1d1d';
+          }
+
+          // Reset label after 4 seconds
+          setTimeout(() => {
+            btn._loading = false;
+            btn.textContent = '⟳ Refresh';
+            btn.style.color = '#10b981';
+            btn.style.borderColor = '#064e3b';
+            btn.style.cursor = 'pointer';
+          }, 4000);
+        };
+
+        header.appendChild(btn);
+      }
+      setTimeout(rrAddRefreshButton, 800);
     })();
     </script>
   </body>
