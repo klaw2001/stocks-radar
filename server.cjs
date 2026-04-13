@@ -437,8 +437,9 @@ async function pollStockScans() {
     let newCount = 0;
 
     for (const evt of normalized) {
-      if (!getEventById(evt.event_id)) {
-        upsertEvent(evt);
+      const isNew = !getEventById(evt.event_id);
+      upsertEvent(evt);
+      if (isNew) {
         newCount++;
         log('stockscans', `  + NEW: ${evt.company_name} (${evt.result_date})`);
         pollTwitterSentiment(evt.event_id, evt.company_name).catch(err =>
@@ -496,6 +497,7 @@ function normalizeStockScansRows(rows, today) {
       // ── Result date ───────────────────────────────────────────────────
       const resultDate = (
         meta.resultDate || meta.result_date || meta.date ||
+        meta['Last Result Date'] || meta['lastResultDate'] || meta['result_date'] ||
         row.resultDate || row.result_date || today
       ).slice(0, 10);
 
@@ -506,8 +508,10 @@ function normalizeStockScansRows(rows, today) {
       const sourceUrl = `https://www.stockscans.in/result-scans`;
 
       // ── Financial metrics from resultTable ────────────────────────────
-      // resultTable can be an array: [{label, curr, prev, yoy_pct}, ...]
-      // or an object: { Revenue: {curr, prev, chg}, ... }
+      // resultTable can be:
+      //   1. Array: [{label, curr, prev, yoy_pct}, ...]
+      //   2. Object with named metrics: { Revenue: {curr, prev, chg}, ... }
+      //   3. Object wrapping a 2D array: { "S": [["","YoY","QoQ","202603",...], ["Revenue", 179, ...], ...] }
       let rt = {};
       if (Array.isArray(rtRaw)) {
         for (const entry of rtRaw) {
@@ -516,7 +520,24 @@ function normalizeStockScansRows(rows, today) {
         }
       } else if (typeof rtRaw === 'object') {
         for (const [k, v] of Object.entries(rtRaw)) {
-          rt[k.toLowerCase()] = v;
+          // Handle 2D array format: { "S": [[headers], [dataRow1], [dataRow2], ...] }
+          if (Array.isArray(v) && v.length > 1 && Array.isArray(v[0])) {
+            const headers = v[0]; // e.g. ["", "YoY", "QoQ", "202603", "202512", ...]
+            const yoyColIdx = headers.findIndex(h => String(h).toUpperCase() === 'YOY');
+            const currColIdx = headers.findIndex((h, i) => i >= 3 && h && /^\d{6}$/.test(String(h)));
+            for (let i = 1; i < v.length; i++) {
+              const dataRow = v[i];
+              const label = dataRow[0];
+              if (!label) continue;
+              rt[String(label).toLowerCase()] = {
+                label,
+                yoy_pct: yoyColIdx >= 0 ? dataRow[yoyColIdx] : dataRow[1],
+                curr: currColIdx >= 0 ? dataRow[currColIdx] : dataRow[3],
+              };
+            }
+          } else {
+            rt[k.toLowerCase()] = v;
+          }
         }
       }
 
@@ -552,9 +573,9 @@ function normalizeStockScansRows(rows, today) {
       const epsEntry     = find('eps', 'earnings per share');
 
       // ── metaRatios fallbacks for price/mcap/pe ────────────────────────
-      const price    = toFloat(meta.cmp ?? meta.price ?? meta.ltp ?? meta.CMP);
-      const mcap     = toFloat(meta.marketCap ?? meta.market_cap ?? meta.mcap ?? meta['Mkt Cap']);
-      const pe       = toFloat(meta.pe ?? meta.PE ?? meta.pe_ratio ?? meta['P/E']);
+      const price    = toFloat(meta.cmp ?? meta.price ?? meta.ltp ?? meta.CMP ?? meta['CMP'] ?? meta['Price']);
+      const mcap     = toFloat(meta.marketCap ?? meta.market_cap ?? meta.mcap ?? meta['Mkt Cap'] ?? meta['Market Capitalization'] ?? meta['MarketCap']);
+      const pe       = toFloat(meta.pe ?? meta.PE ?? meta.pe_ratio ?? meta['P/E'] ?? meta['Price To Earnings'] ?? meta['PriceToEarnings']);
 
       const eventId = makeEventId(company, resultDate, row.companyId || '');
 
