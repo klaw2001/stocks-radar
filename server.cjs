@@ -484,11 +484,14 @@ function normalizeStockScansRows(rows, today) {
 
       // ── Company name ──────────────────────────────────────────────────
       const company =
-        meta.companyName || meta.company_name || meta.name ||
+        meta.companyName || meta.company_name || meta.name || meta.Name ||
         meta.Company || meta['Company Name'] ||
         row.company_name || row.companyName || row.name ||
         (row.companyId ? String(row.companyId) : null);
       if (!company) continue;
+      // Skip rows where the "company name" is actually a ticker (e.g. NSE:TCS)
+      // or a financial metric label scraped from table headers
+      if (/^(NSE|BSE|MCX):[A-Z0-9]+$/i.test(company)) continue;
 
       // ── Result date ───────────────────────────────────────────────────
       const resultDate = (
@@ -586,6 +589,10 @@ function normalizeStockScansRows(rows, today) {
       // ── DOM fallback path ────────────────────────────────────────────────
       const company = row.company;
       if (!company || company.length < 2) continue;
+      // Skip ticker symbols and metric labels (e.g. "Revenue Cr", "NSE:XYZ")
+      if (/^(NSE|BSE|MCX):[A-Z0-9]+$/i.test(company)) continue;
+      const METRIC_LABELS = /^(revenue|operating profit|pat|eps|ebitda|opm|npm|sales|profit|loss|income|expense)\b/i;
+      if (METRIC_LABELS.test(company)) continue;
       const eventId = makeEventId(company, today, '');
 
       // Try to extract numbers from cells array
