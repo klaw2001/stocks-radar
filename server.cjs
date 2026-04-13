@@ -455,6 +455,11 @@ async function pollStockScans() {
       notes: `Parsed ${normalized.length} rows, ${newCount} new.`,
     });
     log('stockscans', `✅ Poll done. ${normalized.length} total, ${newCount} new.`);
+
+    // Immediately poll Tijori whenever new companies are discovered (don't wait 30m)
+    if (newCount > 0) {
+      pollTijori().catch(err => logErr('tijori', `Post-discovery poll failed: ${err.message}`));
+    }
   } catch (err) {
     if (browser) await browser.close().catch(() => {});
     addPollingLog({ source: 'stockscans', poll_time: pollTime, status: 'error', notes: err.message });
@@ -738,7 +743,7 @@ async function pollTwitterSentiment(eventId, companyName) {
  * API docs: https://www.tijoristack.ai/api/v1/  (swagger at /concalls/list)
  * Auth:     Authorization: <raw_key>  (no Bearer prefix)
  */
-async function fetchTijoriConcalls() {
+async function fetchTijoriConcalls(pendingNames = []) {
   let browser;
   try {
     log('tijori', 'Launching browser to bypass Cloudflare…');
@@ -750,41 +755,75 @@ async function fetchTijoriConcalls() {
 
     log('tijori', 'Loading tijoristack.ai (Cloudflare handshake)…');
     await page.goto('https://www.tijoristack.ai', { waitUntil: 'networkidle2', timeout: 30000 });
-    log('tijori', 'Cloudflare cleared. Calling /api/v1/concalls/list…');
+    log('tijori', 'Cloudflare cleared.');
 
-    const result = await page.evaluate(async (key) => {
+    // Helper: call the concalls API from inside the page context (shares CF cookies)
+    const callApi = (params) => page.evaluate(async (key, params) => {
       try {
-        const resp = await fetch('/api/v1/concalls/list?page=1&mcap=all&upcoming=false&page_size=100', {
+        const resp = await fetch(`/api/v1/concalls/list?${params}`, {
           headers: { 'Authorization': `Bearer ${key}`, 'Accept': 'application/json' },
         });
-        console.dir(resp , {depth: null})
-        const text = await resp.text();
-        return { status: resp.status, body: text };
+        return { status: resp.status, body: await resp.text() };
       } catch (e) {
         return { error: e.message };
       }
-    }, TIJORI_KEY);
+    }, TIJORI_KEY, params);
 
-    await browser.close();
-    browser = null;
+    // Step 1: fetch recent bulk list
+    log('tijori', 'Calling /api/v1/concalls/list (recent)…');
+    const bulkResult = await callApi('page=1&mcap=all&upcoming=false&page_size=20');
+    if (bulkResult.error) throw new Error(bulkResult.error);
 
-    if (result.error) throw new Error(result.error);
-
-    log('tijori', `API response: HTTP ${result.status}`);
+    log('tijori', `API response: HTTP ${bulkResult.status}`);
     fs.writeFileSync(
       path.join(__dirname, 'concall_api_response.txt'),
-      `[${new Date().toISOString()}] HTTP ${result.status}\n\n${result.body}\n`,
+      `[${new Date().toISOString()}] HTTP ${bulkResult.status}\n\n${bulkResult.body}\n`,
       'utf8'
     );
-    if (result.status !== 200) {
-      logErr('tijori', `Non-200 response: ${result.body.slice(0, 300)}`);
+    if (bulkResult.status !== 200) {
+      logErr('tijori', `Non-200 response: ${bulkResult.body.slice(0, 300)}`);
+      await browser.close();
       return [];
     }
 
-    const json = JSON.parse(result.body);
-    const data = json?.data || [];
-    log('tijori', `✓ Got ${data.length} concalls from API.`);
-    return data;
+    const bulkJson = JSON.parse(bulkResult.body);
+    const allConcalls = [...(bulkJson?.data || [])];
+    log('tijori', `✓ Got ${allConcalls.length} concalls from bulk list.`);
+
+    // Step 2: for each pending company not matched in bulk, search individually.
+    // Store direct mappings: dbCompanyName → concall (so abbreviations like "TCS" can match
+    // "Tata Consultancy Services Ltd" even when no substring check would catch it).
+    const directMap = new Map(); // originalDbName → concall object
+
+    for (const companyName of pendingNames) {
+      const evtName = companyName.toLowerCase().trim();
+      const foundInBulk = allConcalls.some(c => {
+        const name = (c.company_info?.name || '').toLowerCase().trim();
+        return name === evtName || name.includes(evtName) || evtName.includes(name);
+      });
+
+      if (!foundInBulk) {
+        // Strip legal suffixes before searching (e.g. "Tata Consultancy Services Ltd" → "Tata Consultancy Services")
+        const cleanName = companyName.replace(/\s+(ltd|limited|pvt|private|corp|corporation)\.?\s*$/i, '').trim();
+        log('tijori', `  Searching for "${companyName}" (query: "${cleanName}")…`);
+        const searchResult = await callApi(
+          `company_name=${encodeURIComponent(cleanName)}&upcoming=false&page_size=5`
+        );
+        if (!searchResult.error && searchResult.status === 200) {
+          const searchData = JSON.parse(searchResult.body)?.data || [];
+          log('tijori', `  Search returned ${searchData.length} result(s) for "${cleanName}"`);
+          if (searchData.length > 0) {
+            // Trust the first result as the best match for this company name
+            directMap.set(companyName, searchData[0]);
+            allConcalls.push(...searchData);
+          }
+        }
+      }
+    }
+
+    await browser.close();
+    browser = null;
+    return { bulk: allConcalls, directMap };
   } catch (err) {
     if (browser) await browser.close().catch(() => {});
     throw err;
@@ -831,12 +870,13 @@ async function pollTijori() {
   }
 
   try {
-    const concalls = await fetchTijoriConcalls();
+    const { bulk: concalls, directMap } = await fetchTijoriConcalls(toProcess.map(e => e.company_name));
 
     let updated = 0;
     for (const evt of toProcess) {
       const evtName = evt.company_name.toLowerCase().trim();
-      const match = concalls.find(c => {
+      // First check the direct map (for individually-searched companies like TCS)
+      const match = directMap.get(evt.company_name) || concalls.find(c => {
         const name = (c.company_info?.name || '').toLowerCase().trim();
         return name === evtName || name.includes(evtName) || evtName.includes(name);
       });
@@ -896,8 +936,10 @@ function startPolling() {
   pollingStarted = true;
 
   log('polling', 'Running initial polls on startup…');
-  pollStockScans().catch(err => logErr('polling', `StockScans startup poll failed: ${err.message}`));
-  pollTijori().catch(err => logErr('polling', `Tijori startup poll failed: ${err.message}`));
+  // Run StockScans first, then Tijori so new companies are in DB before Tijori matches them
+  pollStockScans()
+    .then(() => pollTijori())
+    .catch(err => logErr('polling', `Startup poll failed: ${err.message}`));
 
   setInterval(() => {
     log('polling', '10m interval — triggering StockScans poll…');

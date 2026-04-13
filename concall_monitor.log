@@ -1969,3 +1969,495 @@
 [2026-04-13 06:14:33] [twitter] ❌ X API 402 for "Kesar India Ltd": {"account_id":2032530966972129280,"title":"CreditsDepleted","detail":"Your enrolled account [2032530966972129280] does not have any credits to fulfill this request.","type":"https://api.twitter.com/2/
 [2026-04-13 06:14:33] [twitter] ❌ X API 402 for "Tata Consultancy Services Ltd": {"account_id":2032530966972129280,"title":"CreditsDepleted","detail":"Your enrolled account [2032530966972129280] does not have any credits to fulfill this request.","type":"https://api.twitter.com/2/
 [2026-04-13 06:14:33] [twitter] ❌ X API 402 for "Anand Rathi Wealth Ltd": {"account_id":2032530966972129280,"title":"CreditsDepleted","detail":"Your enrolled account [2032530966972129280] does not have any credits to fulfill this request.","type":"https://api.twitter.com/2/
+[2026-04-13 06:24:27] [polling] 10m interval — triggering StockScans poll…
+[2026-04-13 06:24:27] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:24:27] [stockscans] Launching browser…
+[2026-04-13 06:24:28] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:24:30] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:24:33] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:24:33] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:24:33] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:24:33] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:24:33] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:24:33] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":203.7,"Market Capitalization":1188.73}
+[2026-04-13 06:24:33] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:24:33] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:24:33] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:24:33] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:24:33] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:34:27] [polling] 10m interval — triggering StockScans poll…
+[2026-04-13 06:34:27] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:34:27] [stockscans] Launching browser…
+[2026-04-13 06:34:28] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:34:30] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:34:33] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:34:33] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:34:33] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:34:33] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:34:33] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:34:33] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":205.17,"Market Capitalization":1197.35}
+[2026-04-13 06:34:33] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:34:33] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:34:33] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:34:33] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:34:33] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:38:15] [config] PORT=3077
+[2026-04-13 06:38:15] [config] ADMIN_KEY=****-key
+[2026-04-13 06:38:15] [config] X_BEARER_TOKEN=✓ set
+[2026-04-13 06:38:15] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-13 06:38:15] [config] USERS=alice, bob
+[2026-04-13 06:38:15] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-13 06:38:15] [db] Tables ready. 6 existing events in DB.
+[2026-04-13 06:38:15] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:38:15] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-13 06:38:15] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-13 06:38:15] [server] 🔑 Admin key: ****-key
+[2026-04-13 06:38:15] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:38:15] [polling] Running initial polls on startup…
+[2026-04-13 06:38:15] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:38:15] [stockscans] Launching browser…
+[2026-04-13 06:38:15] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-13 06:38:15] [config] PORT=3077
+[2026-04-13 06:38:15] [config] ADMIN_KEY=****-key
+[2026-04-13 06:38:15] [config] X_BEARER_TOKEN=✓ set
+[2026-04-13 06:38:15] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-13 06:38:15] [config] USERS=alice, bob
+[2026-04-13 06:38:15] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-13 06:38:15] [db] Tables ready. 6 existing events in DB.
+[2026-04-13 06:38:15] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:38:15] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-13 06:38:15] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-13 06:38:15] [server] 🔑 Admin key: ****-key
+[2026-04-13 06:38:15] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:38:15] [polling] Running initial polls on startup…
+[2026-04-13 06:38:15] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:38:15] [stockscans] Launching browser…
+[2026-04-13 06:38:15] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-13 06:38:15] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:38:15] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:38:17] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:38:17] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:38:20] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:38:20] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:38:20] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:38:20] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:38:20] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:38:20] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:38:20] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":205.48,"Market Capitalization":1199.13}
+[2026-04-13 06:38:20] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:38:20] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:38:20] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:38:20] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:38:20] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:38:20] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:38:20] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":205.48,"Market Capitalization":1199.13}
+[2026-04-13 06:38:20] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:38:20] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:38:20] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:38:20] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:38:20] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:38:20] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:38:20] [tijori] ⏳ Starting poll. 6 pending + 0 needing URL refresh.
+[2026-04-13 06:38:20] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-13 06:38:20] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:38:20] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:38:20] [tijori] ⏳ Starting poll. 6 pending + 0 needing URL refresh.
+[2026-04-13 06:38:20] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-13 06:38:20] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-13 06:38:20] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-13 06:38:22] [tijori] Cloudflare cleared.
+[2026-04-13 06:38:22] [tijori] Cloudflare cleared.
+[2026-04-13 06:38:22] [tijori] Calling /api/v1/concalls/list (recent)…
+[2026-04-13 06:38:22] [tijori] Calling /api/v1/concalls/list (recent)…
+[2026-04-13 06:38:22] [tijori] API response: HTTP 200
+[2026-04-13 06:38:22] [tijori] API response: HTTP 200
+[2026-04-13 06:38:22] [tijori] ✓ Got 20 concalls from bulk list.
+[2026-04-13 06:38:22] [tijori]   Searching for "Aqylon Nexus Ltd" (query: "Aqylon Nexus")…
+[2026-04-13 06:38:22] [tijori] ✓ Got 20 concalls from bulk list.
+[2026-04-13 06:38:22] [tijori]   Searching for "Aqylon Nexus Ltd" (query: "Aqylon Nexus")…
+[2026-04-13 06:38:22] [tijori]   Search returned 5 result(s) for "Aqylon Nexus"
+[2026-04-13 06:38:22] [tijori]   Search returned 5 result(s) for "Aqylon Nexus"
+[2026-04-13 06:38:22] [tijori]   Searching for "G M Breweries Ltd" (query: "G M Breweries")…
+[2026-04-13 06:38:22] [tijori]   Searching for "G M Breweries Ltd" (query: "G M Breweries")…
+[2026-04-13 06:38:22] [tijori]   Search returned 5 result(s) for "G M Breweries"
+[2026-04-13 06:38:22] [tijori]   Search returned 5 result(s) for "G M Breweries"
+[2026-04-13 06:38:22] [tijori]   Searching for "Kesar India Ltd" (query: "Kesar India")…
+[2026-04-13 06:38:22] [tijori]   Searching for "Kesar India Ltd" (query: "Kesar India")…
+[2026-04-13 06:38:22] [tijori]   Search returned 5 result(s) for "Kesar India"
+[2026-04-13 06:38:22] [tijori]   Search returned 5 result(s) for "Kesar India"
+[2026-04-13 06:38:22] [tijori]   Searching for "Tata Consultancy Services Ltd" (query: "Tata Consultancy Services")…
+[2026-04-13 06:38:22] [tijori]   Searching for "Tata Consultancy Services Ltd" (query: "Tata Consultancy Services")…
+[2026-04-13 06:38:23] [tijori]   Search returned 5 result(s) for "Tata Consultancy Services"
+[2026-04-13 06:38:23] [tijori]   Search returned 5 result(s) for "Tata Consultancy Services"
+[2026-04-13 06:38:23] [tijori]   no match: "Aqylon Nexus Ltd"
+[2026-04-13 06:38:23] [tijori]   no match: "Aqylon Nexus Ltd"
+[2026-04-13 06:38:23] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-13 06:38:23] [tijori]   no match: "G M Breweries Ltd"
+[2026-04-13 06:38:23] [tijori]   no match: "Kesar India Ltd"
+[2026-04-13 06:38:23] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-13 06:38:23] [tijori]   no match: "Tata Consultancy Services Ltd"
+[2026-04-13 06:38:23] [tijori] ✅ Poll done. 2/6 updated.
+[2026-04-13 06:38:23] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-13 06:38:23] [tijori]   no match: "G M Breweries Ltd"
+[2026-04-13 06:38:23] [tijori]   no match: "Kesar India Ltd"
+[2026-04-13 06:38:23] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-13 06:38:23] [tijori]   no match: "Tata Consultancy Services Ltd"
+[2026-04-13 06:38:23] [tijori] ✅ Poll done. 2/6 updated.
+[2026-04-13 06:38:32] [config] PORT=3077
+[2026-04-13 06:38:32] [config] ADMIN_KEY=****-key
+[2026-04-13 06:38:32] [config] X_BEARER_TOKEN=✓ set
+[2026-04-13 06:38:32] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-13 06:38:32] [config] USERS=alice, bob
+[2026-04-13 06:38:32] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-13 06:38:32] [db] Tables ready. 6 existing events in DB.
+[2026-04-13 06:38:32] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:38:32] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-13 06:38:32] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-13 06:38:32] [server] 🔑 Admin key: ****-key
+[2026-04-13 06:38:32] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:38:32] [polling] Running initial polls on startup…
+[2026-04-13 06:38:32] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:38:32] [stockscans] Launching browser…
+[2026-04-13 06:38:32] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-13 06:38:32] [config] PORT=3077
+[2026-04-13 06:38:32] [config] ADMIN_KEY=****-key
+[2026-04-13 06:38:32] [config] X_BEARER_TOKEN=✓ set
+[2026-04-13 06:38:32] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-13 06:38:32] [config] USERS=alice, bob
+[2026-04-13 06:38:32] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-13 06:38:32] [db] Tables ready. 6 existing events in DB.
+[2026-04-13 06:38:32] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:38:32] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-13 06:38:32] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-13 06:38:32] [server] 🔑 Admin key: ****-key
+[2026-04-13 06:38:32] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:38:32] [polling] Running initial polls on startup…
+[2026-04-13 06:38:32] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:38:32] [stockscans] Launching browser…
+[2026-04-13 06:38:32] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-13 06:38:32] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:38:32] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:38:33] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:38:33] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:38:36] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:38:36] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:38:36] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:38:36] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:38:36] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:38:36] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:38:36] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":205.48,"Market Capitalization":1199.13}
+[2026-04-13 06:38:36] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:38:36] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:38:36] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:38:36] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:38:36] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:38:36] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:38:36] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":205.48,"Market Capitalization":1199.13}
+[2026-04-13 06:38:36] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:38:36] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:38:37] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:38:37] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:38:37] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:38:37] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:38:37] [tijori] ⏳ Starting poll. 6 pending + 0 needing URL refresh.
+[2026-04-13 06:38:37] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-13 06:38:37] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:38:37] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:38:37] [tijori] ⏳ Starting poll. 6 pending + 0 needing URL refresh.
+[2026-04-13 06:38:37] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-13 06:38:37] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-13 06:38:37] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-13 06:38:39] [tijori] Cloudflare cleared.
+[2026-04-13 06:38:39] [tijori] Cloudflare cleared.
+[2026-04-13 06:38:39] [tijori] Calling /api/v1/concalls/list (recent)…
+[2026-04-13 06:38:39] [tijori] Calling /api/v1/concalls/list (recent)…
+[2026-04-13 06:38:39] [tijori] API response: HTTP 200
+[2026-04-13 06:38:39] [tijori] API response: HTTP 200
+[2026-04-13 06:38:39] [tijori] ✓ Got 20 concalls from bulk list.
+[2026-04-13 06:38:39] [tijori]   Searching for "Aqylon Nexus Ltd" (query: "Aqylon Nexus")…
+[2026-04-13 06:38:39] [tijori] ✓ Got 20 concalls from bulk list.
+[2026-04-13 06:38:39] [tijori]   Searching for "Aqylon Nexus Ltd" (query: "Aqylon Nexus")…
+[2026-04-13 06:38:39] [tijori]   Search returned 5 result(s) for "Aqylon Nexus"
+[2026-04-13 06:38:39] [tijori]   Search returned 5 result(s) for "Aqylon Nexus"
+[2026-04-13 06:38:39] [tijori]   Searching for "G M Breweries Ltd" (query: "G M Breweries")…
+[2026-04-13 06:38:39] [tijori]   Searching for "G M Breweries Ltd" (query: "G M Breweries")…
+[2026-04-13 06:38:39] [tijori]   Search returned 5 result(s) for "G M Breweries"
+[2026-04-13 06:38:39] [tijori]   Search returned 5 result(s) for "G M Breweries"
+[2026-04-13 06:38:39] [tijori]   Searching for "Kesar India Ltd" (query: "Kesar India")…
+[2026-04-13 06:38:39] [tijori]   Searching for "Kesar India Ltd" (query: "Kesar India")…
+[2026-04-13 06:38:39] [tijori]   Search returned 5 result(s) for "Kesar India"
+[2026-04-13 06:38:39] [tijori]   Search returned 5 result(s) for "Kesar India"
+[2026-04-13 06:38:39] [tijori]   Searching for "Tata Consultancy Services Ltd" (query: "Tata Consultancy Services")…
+[2026-04-13 06:38:39] [tijori]   Searching for "Tata Consultancy Services Ltd" (query: "Tata Consultancy Services")…
+[2026-04-13 06:38:39] [tijori]   Search returned 5 result(s) for "Tata Consultancy Services"
+[2026-04-13 06:38:39] [tijori]   Search returned 5 result(s) for "Tata Consultancy Services"
+[2026-04-13 06:38:39] [tijori]   no match: "Aqylon Nexus Ltd"
+[2026-04-13 06:38:39] [tijori]   no match: "Aqylon Nexus Ltd"
+[2026-04-13 06:38:39] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-13 06:38:39] [tijori]   no match: "G M Breweries Ltd"
+[2026-04-13 06:38:39] [tijori]   no match: "Kesar India Ltd"
+[2026-04-13 06:38:39] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-13 06:38:39] [tijori]   no match: "Tata Consultancy Services Ltd"
+[2026-04-13 06:38:39] [tijori] ✅ Poll done. 2/6 updated.
+[2026-04-13 06:38:39] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-13 06:38:39] [tijori]   no match: "G M Breweries Ltd"
+[2026-04-13 06:38:39] [tijori]   no match: "Kesar India Ltd"
+[2026-04-13 06:38:39] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-13 06:38:39] [tijori]   no match: "Tata Consultancy Services Ltd"
+[2026-04-13 06:38:39] [tijori] ✅ Poll done. 2/6 updated.
+[2026-04-13 06:39:52] [config] PORT=3077
+[2026-04-13 06:39:52] [config] ADMIN_KEY=****-key
+[2026-04-13 06:39:52] [config] X_BEARER_TOKEN=✓ set
+[2026-04-13 06:39:52] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-13 06:39:52] [config] USERS=alice, bob
+[2026-04-13 06:39:52] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-13 06:39:52] [db] Tables ready. 6 existing events in DB.
+[2026-04-13 06:39:52] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:39:52] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-13 06:39:52] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-13 06:39:52] [server] 🔑 Admin key: ****-key
+[2026-04-13 06:39:52] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:39:52] [polling] Running initial polls on startup…
+[2026-04-13 06:39:52] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:39:52] [stockscans] Launching browser…
+[2026-04-13 06:39:52] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-13 06:39:52] [config] PORT=3077
+[2026-04-13 06:39:52] [config] ADMIN_KEY=****-key
+[2026-04-13 06:39:52] [config] X_BEARER_TOKEN=✓ set
+[2026-04-13 06:39:52] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-13 06:39:52] [config] USERS=alice, bob
+[2026-04-13 06:39:52] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-13 06:39:52] [db] Tables ready. 6 existing events in DB.
+[2026-04-13 06:39:52] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:39:52] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-13 06:39:52] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-13 06:39:52] [server] 🔑 Admin key: ****-key
+[2026-04-13 06:39:52] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:39:52] [polling] Running initial polls on startup…
+[2026-04-13 06:39:52] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:39:52] [stockscans] Launching browser…
+[2026-04-13 06:39:52] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-13 06:39:52] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:39:52] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:39:54] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:39:54] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:39:57] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:39:57] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:39:57] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:39:57] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:39:57] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:39:57] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:39:57] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":206.61,"Market Capitalization":1205.73}
+[2026-04-13 06:39:57] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:39:57] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:39:57] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:39:57] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:39:57] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:39:57] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:39:57] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":206.61,"Market Capitalization":1205.73}
+[2026-04-13 06:39:57] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:39:57] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:39:57] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:39:57] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:39:57] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:39:57] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:39:57] [tijori] ⏳ Starting poll. 6 pending + 0 needing URL refresh.
+[2026-04-13 06:39:57] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-13 06:39:57] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:39:57] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:39:57] [tijori] ⏳ Starting poll. 6 pending + 0 needing URL refresh.
+[2026-04-13 06:39:57] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-13 06:39:57] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-13 06:39:57] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-13 06:39:59] [tijori] Cloudflare cleared.
+[2026-04-13 06:39:59] [tijori] Cloudflare cleared.
+[2026-04-13 06:39:59] [tijori] Calling /api/v1/concalls/list (recent)…
+[2026-04-13 06:39:59] [tijori] Calling /api/v1/concalls/list (recent)…
+[2026-04-13 06:39:59] [tijori] API response: HTTP 200
+[2026-04-13 06:39:59] [tijori] API response: HTTP 200
+[2026-04-13 06:39:59] [tijori] ✓ Got 20 concalls from bulk list.
+[2026-04-13 06:39:59] [tijori]   Searching for "Aqylon Nexus Ltd" (query: "Aqylon Nexus")…
+[2026-04-13 06:39:59] [tijori] ✓ Got 20 concalls from bulk list.
+[2026-04-13 06:39:59] [tijori]   Searching for "Aqylon Nexus Ltd" (query: "Aqylon Nexus")…
+[2026-04-13 06:39:59] [tijori]   Search returned 5 result(s) for "Aqylon Nexus"
+[2026-04-13 06:39:59] [tijori]   Search returned 5 result(s) for "Aqylon Nexus"
+[2026-04-13 06:39:59] [tijori]   Searching for "G M Breweries Ltd" (query: "G M Breweries")…
+[2026-04-13 06:39:59] [tijori]   Searching for "G M Breweries Ltd" (query: "G M Breweries")…
+[2026-04-13 06:39:59] [tijori]   Search returned 5 result(s) for "G M Breweries"
+[2026-04-13 06:39:59] [tijori]   Search returned 5 result(s) for "G M Breweries"
+[2026-04-13 06:39:59] [tijori]   Searching for "Kesar India Ltd" (query: "Kesar India")…
+[2026-04-13 06:39:59] [tijori]   Searching for "Kesar India Ltd" (query: "Kesar India")…
+[2026-04-13 06:39:59] [tijori]   Search returned 5 result(s) for "Kesar India"
+[2026-04-13 06:39:59] [tijori]   Search returned 5 result(s) for "Kesar India"
+[2026-04-13 06:39:59] [tijori]   Searching for "Tata Consultancy Services Ltd" (query: "Tata Consultancy Services")…
+[2026-04-13 06:39:59] [tijori]   Searching for "Tata Consultancy Services Ltd" (query: "Tata Consultancy Services")…
+[2026-04-13 06:39:59] [tijori]   Search returned 5 result(s) for "Tata Consultancy Services"
+[2026-04-13 06:39:59] [tijori]   Search returned 5 result(s) for "Tata Consultancy Services"
+[2026-04-13 06:39:59] [tijori]   matched "Aqylon Nexus Ltd" but no recording/summary yet
+[2026-04-13 06:39:59] [tijori]   matched "Aqylon Nexus Ltd" but no recording/summary yet
+[2026-04-13 06:39:59] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-13 06:39:59] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-13 06:39:59] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-13 06:39:59] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-13 06:39:59] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-13 06:39:59] [tijori] ✅ Poll done. 2/6 updated.
+[2026-04-13 06:39:59] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-13 06:39:59] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-13 06:39:59] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-13 06:39:59] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-13 06:39:59] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-13 06:39:59] [tijori] ✅ Poll done. 2/6 updated.
+[2026-04-13 06:40:05] [config] PORT=3077
+[2026-04-13 06:40:05] [config] ADMIN_KEY=****-key
+[2026-04-13 06:40:05] [config] X_BEARER_TOKEN=✓ set
+[2026-04-13 06:40:05] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-13 06:40:05] [config] USERS=alice, bob
+[2026-04-13 06:40:05] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-13 06:40:05] [db] Tables ready. 6 existing events in DB.
+[2026-04-13 06:40:05] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:40:05] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-13 06:40:05] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-13 06:40:05] [server] 🔑 Admin key: ****-key
+[2026-04-13 06:40:05] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:40:05] [polling] Running initial polls on startup…
+[2026-04-13 06:40:05] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:40:05] [stockscans] Launching browser…
+[2026-04-13 06:40:05] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-13 06:40:05] [config] PORT=3077
+[2026-04-13 06:40:05] [config] ADMIN_KEY=****-key
+[2026-04-13 06:40:05] [config] X_BEARER_TOKEN=✓ set
+[2026-04-13 06:40:05] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-13 06:40:05] [config] USERS=alice, bob
+[2026-04-13 06:40:05] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-13 06:40:05] [db] Tables ready. 6 existing events in DB.
+[2026-04-13 06:40:05] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:40:05] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-13 06:40:05] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-13 06:40:05] [server] 🔑 Admin key: ****-key
+[2026-04-13 06:40:05] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:40:05] [polling] Running initial polls on startup…
+[2026-04-13 06:40:05] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:40:05] [stockscans] Launching browser…
+[2026-04-13 06:40:05] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-13 06:40:05] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:40:05] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:40:07] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:40:07] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:40:10] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:40:10] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:40:10] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:40:10] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:40:10] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:40:10] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:40:10] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":206.61,"Market Capitalization":1205.73}
+[2026-04-13 06:40:10] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:40:10] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:40:10] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:40:10] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:40:10] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:40:10] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:40:10] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":206.61,"Market Capitalization":1205.73}
+[2026-04-13 06:40:10] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:40:10] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:40:10] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:40:10] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:40:10] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:40:10] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:40:10] [tijori] ⏳ Starting poll. 6 pending + 0 needing URL refresh.
+[2026-04-13 06:40:10] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-13 06:40:10] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:40:10] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:40:10] [tijori] ⏳ Starting poll. 6 pending + 0 needing URL refresh.
+[2026-04-13 06:40:10] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-13 06:40:10] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-13 06:40:10] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-13 06:40:11] [tijori] Cloudflare cleared.
+[2026-04-13 06:40:11] [tijori] Cloudflare cleared.
+[2026-04-13 06:40:11] [tijori] Calling /api/v1/concalls/list (recent)…
+[2026-04-13 06:40:11] [tijori] Calling /api/v1/concalls/list (recent)…
+[2026-04-13 06:40:12] [tijori] API response: HTTP 200
+[2026-04-13 06:40:12] [tijori] API response: HTTP 200
+[2026-04-13 06:40:12] [tijori] ✓ Got 20 concalls from bulk list.
+[2026-04-13 06:40:12] [tijori]   Searching for "Aqylon Nexus Ltd" (query: "Aqylon Nexus")…
+[2026-04-13 06:40:12] [tijori] ✓ Got 20 concalls from bulk list.
+[2026-04-13 06:40:12] [tijori]   Searching for "Aqylon Nexus Ltd" (query: "Aqylon Nexus")…
+[2026-04-13 06:40:12] [tijori]   Search returned 5 result(s) for "Aqylon Nexus"
+[2026-04-13 06:40:12] [tijori]   Search returned 5 result(s) for "Aqylon Nexus"
+[2026-04-13 06:40:12] [tijori]   Searching for "G M Breweries Ltd" (query: "G M Breweries")…
+[2026-04-13 06:40:12] [tijori]   Searching for "G M Breweries Ltd" (query: "G M Breweries")…
+[2026-04-13 06:40:12] [tijori]   Search returned 5 result(s) for "G M Breweries"
+[2026-04-13 06:40:12] [tijori]   Search returned 5 result(s) for "G M Breweries"
+[2026-04-13 06:40:12] [tijori]   Searching for "Kesar India Ltd" (query: "Kesar India")…
+[2026-04-13 06:40:12] [tijori]   Searching for "Kesar India Ltd" (query: "Kesar India")…
+[2026-04-13 06:40:12] [tijori]   Search returned 5 result(s) for "Kesar India"
+[2026-04-13 06:40:12] [tijori]   Search returned 5 result(s) for "Kesar India"
+[2026-04-13 06:40:12] [tijori]   Searching for "Tata Consultancy Services Ltd" (query: "Tata Consultancy Services")…
+[2026-04-13 06:40:12] [tijori]   Searching for "Tata Consultancy Services Ltd" (query: "Tata Consultancy Services")…
+[2026-04-13 06:40:12] [tijori]   Search returned 5 result(s) for "Tata Consultancy Services"
+[2026-04-13 06:40:12] [tijori]   Search returned 5 result(s) for "Tata Consultancy Services"
+[2026-04-13 06:40:12] [tijori]   matched "Aqylon Nexus Ltd" but no recording/summary yet
+[2026-04-13 06:40:12] [tijori]   matched "Aqylon Nexus Ltd" but no recording/summary yet
+[2026-04-13 06:40:12] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-13 06:40:12] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-13 06:40:12] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-13 06:40:12] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-13 06:40:12] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-13 06:40:12] [tijori] ✅ Poll done. 2/6 updated.
+[2026-04-13 06:40:12] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-13 06:40:12] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-13 06:40:12] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-13 06:40:12] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-13 06:40:12] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-13 06:40:12] [tijori] ✅ Poll done. 2/6 updated.
+[2026-04-13 06:41:38] [config] PORT=3077
+[2026-04-13 06:41:38] [config] ADMIN_KEY=****-key
+[2026-04-13 06:41:38] [config] X_BEARER_TOKEN=✓ set
+[2026-04-13 06:41:38] [config] TIJORI_KEY=✓ set (f9a4f2…)
+[2026-04-13 06:41:38] [config] USERS=alice, bob
+[2026-04-13 06:41:38] [db] SQLite opened: /Users/hrishi/Downloads/results-radar-deploy/results_radar.db
+[2026-04-13 06:41:38] [db] Tables ready. 6 existing events in DB.
+[2026-04-13 06:41:38] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:41:38] [server] 🚀 Results Radar v2 → http://localhost:3077
+[2026-04-13 06:41:38] [server] 🔐 Auth ON — users: alice, bob
+[2026-04-13 06:41:38] [server] 🔑 Admin key: ****-key
+[2026-04-13 06:41:38] [server] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[2026-04-13 06:41:38] [polling] Running initial polls on startup…
+[2026-04-13 06:41:38] [stockscans] ⏳ Starting poll…
+[2026-04-13 06:41:38] [stockscans] Launching browser…
+[2026-04-13 06:41:38] [polling] Scheduled: StockScans every 10m, Tijori every 30m.
+[2026-04-13 06:41:38] [stockscans] Navigating to stockscans.in/result-scans…
+[2026-04-13 06:41:40] [stockscans] Page loaded. Waiting for SPA data…
+[2026-04-13 06:41:43] [stockscans] Captured 3 JSON response(s). Parsing…
+[2026-04-13 06:41:43] [stockscans]   /api/company/results/scan → Object{quarterDate, resultTables, order, orderBy, total, start, end, resultDates}
+[2026-04-13 06:41:43] [stockscans] ✓ Using 6 rows from /api/company/results/scan
+[2026-04-13 06:41:43] [stockscans]   Row keys: companyId, metaRatios, resultTable, documents
+[2026-04-13 06:41:43] [stockscans]     .companyId: NSE:AQYLON
+[2026-04-13 06:41:43] [stockscans]     .metaRatios: Object{Fundamentals Source, Name, Last Result Date, Price To Earnings, Market Capitalization} = {"Fundamentals Source":"S","Name":"Aqylon Nexus Ltd","Last Result Date":"2026-04-11","Price To Earnings":206.61,"Market Capitalization":1205.73}
+[2026-04-13 06:41:43] [stockscans]     .resultTable: Object{S} = {"S":[["","YoY","QoQ","202603","202512","202503"],["Revenue",179.14,-21.62,3.88,4.95,1.39],["Operating Profit",-16.67,-94.54,0.1,1.83,0.12],["OPM",null,null,2.58,36.97,8.63],["PAT",-6758.33,-639.86,-7
+[2026-04-13 06:41:43] [stockscans]     .documents: Array[1] first={"date":"202603","documentType":"Result","ssUrl":"tyrconbzox8rv2ydvl52y6s9.pdf","hasNotes":false}
+[2026-04-13 06:41:43] [stockscans] Normalizing 6 raw rows…
+[2026-04-13 06:41:43] [stockscans]   → 6 valid companies after normalization
+[2026-04-13 06:41:43] [stockscans] ✅ Poll done. 6 total, 0 new.
+[2026-04-13 06:41:43] [tijori] ⏳ Starting poll. 6 pending + 0 needing URL refresh.
+[2026-04-13 06:41:43] [tijori] Launching browser to bypass Cloudflare…
+[2026-04-13 06:41:43] [tijori] Loading tijoristack.ai (Cloudflare handshake)…
+[2026-04-13 06:41:44] [auth] ✓ Login: "bob"
+[2026-04-13 06:41:45] [tijori] Cloudflare cleared.
+[2026-04-13 06:41:45] [tijori] Calling /api/v1/concalls/list (recent)…
+[2026-04-13 06:41:45] [tijori] API response: HTTP 200
+[2026-04-13 06:41:45] [tijori] ✓ Got 20 concalls from bulk list.
+[2026-04-13 06:41:45] [tijori]   Searching for "Aqylon Nexus Ltd" (query: "Aqylon Nexus")…
+[2026-04-13 06:41:45] [tijori]   Search returned 5 result(s) for "Aqylon Nexus"
+[2026-04-13 06:41:45] [tijori]   Searching for "G M Breweries Ltd" (query: "G M Breweries")…
+[2026-04-13 06:41:45] [tijori]   Search returned 5 result(s) for "G M Breweries"
+[2026-04-13 06:41:45] [tijori]   Searching for "Kesar India Ltd" (query: "Kesar India")…
+[2026-04-13 06:41:45] [tijori]   Search returned 5 result(s) for "Kesar India"
+[2026-04-13 06:41:45] [tijori]   Searching for "Tata Consultancy Services Ltd" (query: "Tata Consultancy Services")…
+[2026-04-13 06:41:45] [tijori]   Search returned 5 result(s) for "Tata Consultancy Services"
+[2026-04-13 06:41:45] [tijori]   matched "Aqylon Nexus Ltd" but no recording/summary yet
+[2026-04-13 06:41:45] [tijori]   ✓ updated: "Anand Rathi Wealth Ltd" (slug: anand-rathi-wealth-services-ltd)
+[2026-04-13 06:41:45] [tijori]   matched "G M Breweries Ltd" but no recording/summary yet
+[2026-04-13 06:41:45] [tijori]   matched "Kesar India Ltd" but no recording/summary yet
+[2026-04-13 06:41:45] [tijori]   ✓ updated: "Krishana Phoschem Ltd" (slug: krishna-phoschem-limited)
+[2026-04-13 06:41:45] [tijori]   matched "Tata Consultancy Services Ltd" but no recording/summary yet
+[2026-04-13 06:41:45] [tijori] ✅ Poll done. 2/6 updated.
