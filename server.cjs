@@ -519,7 +519,16 @@ function normalizeStockScansRows(rows, today) {
           rt[key] = entry;
         }
       } else if (typeof rtRaw === 'object') {
-        for (const [k, v] of Object.entries(rtRaw)) {
+        // If the resultTable has both "C" (Consolidated) and "S" (Standalone) keys,
+        // prefer the one matching the company's Fundamentals Source from metaRatios.
+        const fundSource = (meta['Fundamentals Source'] || meta.fundamentalsSource || '').toUpperCase();
+        const rtEntries = Object.entries(rtRaw);
+        const hasBothCS = rtEntries.some(([k]) => k === 'C') && rtEntries.some(([k]) => k === 'S');
+        const entriesToProcess = (hasBothCS && (fundSource === 'C' || fundSource === 'S'))
+          ? rtEntries.filter(([k]) => k === fundSource)
+          : rtEntries;
+
+        for (const [k, v] of entriesToProcess) {
           // Handle 2D array format: { "S": [[headers], [dataRow1], [dataRow2], ...] }
           if (Array.isArray(v) && v.length > 1 && Array.isArray(v[0])) {
             const headers = v[0]; // e.g. ["", "YoY", "QoQ", "202603", "202512", ...]
