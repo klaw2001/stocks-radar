@@ -13,28 +13,9 @@
     <script type="module" crossorigin src="./assets/index-CS3prfdc.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DQK7uJOA.css">
     <style>
-      /* ── Action buttons: uniform 28×28px squares ──────────────────────── */
-      td:last-child button,
-      td:last-child a[role="button"] {
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 28px !important;
-        height: 28px !important;
-        padding: 0 !important;
-        border-radius: 6px !important;
-        font-size: 13px !important;
-        margin: 0 2px !important;
-        vertical-align: middle !important;
-        transition: background 0.15s, border-color 0.15s !important;
-        flex-shrink: 0 !important;
-      }
       td:last-child {
         white-space: nowrap !important;
-        padding: 4px 8px !important;
       }
-      /* Gap between action buttons */
-      td:last-child > * { margin: 0 1px !important; }
     </style>
   </head>
   <body>
@@ -207,15 +188,16 @@
 
           const btn = document.createElement('button');
           btn.title = 'View AI Summary';
-          btn.innerHTML = '🤖';
+          btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>`;
           btn.setAttribute('style', [
-            'background:none', 'border:1px solid #1e3a5f', 'border-radius:6px',
-            'color:#3b82f6', 'cursor:pointer', 'font-size:13px',
-            'width:28px', 'height:28px', 'padding:0',
+            'background:none', 'border:none', 'padding:0',
+            'color:#64748b', 'cursor:pointer',
             'display:inline-flex', 'align-items:center', 'justify-content:center',
             'flex-shrink:0',
-            'transition:background 0.15s,border-color 0.15s',
+            'transition:color 0.15s',
           ].join(';'));
+          btn.onmouseover = () => { btn.style.color = '#3b82f6'; };
+          btn.onmouseout  = () => { btn.style.color = '#64748b'; };
           btn.onclick = (e) => { e.stopPropagation(); rrOpenSidebar(evt.event_id); };
           actionsCell.insertBefore(btn, actionsCell.firstChild);
         });

@@ -169,7 +169,7 @@ const stmts = {
       chatter_sentiment = COALESCE(excluded.chatter_sentiment, chatter_sentiment),
       chatter_summary = COALESCE(excluded.chatter_summary, chatter_summary),
       top_post_links = COALESCE(excluded.top_post_links, top_post_links),
-      transcript_status = COALESCE(excluded.transcript_status, transcript_status),
+      transcript_status = CASE WHEN excluded.transcript_status = 'available' THEN 'available' ELSE transcript_status END,
       transcript_url = COALESCE(excluded.transcript_url, transcript_url),
       transcript_summary_url = COALESCE(excluded.transcript_summary_url, transcript_summary_url),
       transcript_summary_text = COALESCE(excluded.transcript_summary_text, transcript_summary_text),
@@ -735,6 +735,23 @@ async function pollTwitterSentiment(eventId, companyName) {
 }
 
 // ─── Tijori Finance Poller ────────────────────────────────────────────────────
+// Strip legal suffixes (Ltd, Limited, etc.) for cleaner name comparison
+function stripSuffix(str) {
+  return str.toLowerCase()
+    .replace(/\s+(ltd|limited|pvt|private|corp|corporation|inc|co)\.?\s*$/i, '')
+    .replace(/-/g, ' ')
+    .trim();
+}
+
+// Match a Tijori concall against a DB company name using name + slug
+function concallMatches(concall, evtName) {
+  const name = (concall.company_info?.name || '').toLowerCase().trim();
+  const slug = stripSuffix(concall.company_info?.slug || '');
+  const evtClean = stripSuffix(evtName);
+  return name === evtName
+    || name.includes(evtName) || evtName.includes(name)
+    || (slug && (slug === evtClean || slug.includes(evtClean) || evtClean.includes(slug)));
+}
 /**
  * Fetch all recent concalls from tijoristack.ai in one paginated call,
  * then match against our pending events by company name.
@@ -797,10 +814,7 @@ async function fetchTijoriConcalls(pendingNames = []) {
 
     for (const companyName of pendingNames) {
       const evtName = companyName.toLowerCase().trim();
-      const foundInBulk = allConcalls.some(c => {
-        const name = (c.company_info?.name || '').toLowerCase().trim();
-        return name === evtName || name.includes(evtName) || evtName.includes(name);
-      });
+      const foundInBulk = allConcalls.some(c => concallMatches(c, evtName));
 
       if (!foundInBulk) {
         // Strip legal suffixes before searching (e.g. "Tata Consultancy Services Ltd" → "Tata Consultancy Services")
@@ -813,9 +827,14 @@ async function fetchTijoriConcalls(pendingNames = []) {
           const searchData = JSON.parse(searchResult.body)?.data || [];
           log('tijori', `  Search returned ${searchData.length} result(s) for "${cleanName}"`);
           if (searchData.length > 0) {
-            // Trust the first result as the best match for this company name
-            directMap.set(companyName, searchData[0]);
-            allConcalls.push(...searchData);
+            // Only use the result if it actually matches our company name (via slug or name)
+            const bestMatch = searchData.find(c => concallMatches(c, evtName));
+            if (bestMatch) {
+              directMap.set(companyName, bestMatch);
+              allConcalls.push(bestMatch);
+            } else {
+              log('tijori', `  Search results for "${cleanName}" did not match — skipping`);
+            }
           }
         }
       }
@@ -876,10 +895,7 @@ async function pollTijori() {
     for (const evt of toProcess) {
       const evtName = evt.company_name.toLowerCase().trim();
       // First check the direct map (for individually-searched companies like TCS)
-      const match = directMap.get(evt.company_name) || concalls.find(c => {
-        const name = (c.company_info?.name || '').toLowerCase().trim();
-        return name === evtName || name.includes(evtName) || evtName.includes(name);
-      });
+      const match = directMap.get(evt.company_name) || concalls.find(c => concallMatches(c, evtName));
 
       if (!match) {
         log('tijori', `  no match: "${evt.company_name}"`);
