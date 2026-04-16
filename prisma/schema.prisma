@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ResultEvent {
+  event_id                String   @id
+  company_name            String
+  result_date             String
+  screener_url            String?
+  pdf_url                 String?
+  price                   Float?
+  market_cap              Float?
+  pe                      Float?
+  sales_yoy               Float?
+  sales_current           Float?
+  ebitda_yoy              Float?
+  ebitda_current          Float?
+  pat_yoy                 Float?
+  pat_current             Float?
+  eps_yoy                 Float?
+  eps_current             Float?
+  chatter_sentiment       String?  @default("neutral")
+  chatter_summary         String?
+  top_post_links          String?
+  transcript_status       String?  @default("pending")
+  transcript_url          String?
+  transcript_summary_url  String?
+  transcript_summary_text String?
+  audio_url               String?
+  ai_summary_json         String?
+  is_read                 Boolean  @default(false)
+  chatter_fetched         Boolean  @default(false)
+  created_at              String
+  updated_at              String
+
+  @@map("result_events")
+}
+
+model PollingLog {
+  id        Int     @id @default(autoincrement())
+  source    String?
+  poll_time String?
+  status    String?
+  notes     String?
+
+  @@map("polling_logs")
+}

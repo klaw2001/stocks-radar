@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: "results-radar",
-    script: "server.cjs",
+    script: "server.js",
     env: {
       NODE_ENV: "production",
       PORT: 5000
